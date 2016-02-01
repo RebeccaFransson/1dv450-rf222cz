@@ -1,0 +1,9 @@
+<h1>Register application</h1>
+<%	 if flash[:error] %>
+    <p><%=	  flash[:error] %></p>
+<%	end  %>
+
+<%=	  simple_form_for(@app) do |f| %>
+    <%=	 f.input :app_name %>
+    <%=	 f.button :submit %>
+<% end %>

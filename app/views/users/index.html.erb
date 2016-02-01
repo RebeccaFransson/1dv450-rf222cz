@@ -1,0 +1,8 @@
+<h1>Alla användare</h1>
+
+<%	 @users.each do|u| %>
+    <h4><%=	 u.name %></h4><%=	u.id %>
+    <%	 u.App.each do |app| %>
+        <%= link_to app.app_name, app_path(app) %>
+    <%	 end %>
+<%	 end %>

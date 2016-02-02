@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20160201145244) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",               limit: 20
-    t.string   "email",              limit: 50,                 null: false
-    t.string   "encrypted_password"
-    t.boolean  "isAdmin",                       default: false, null: false
+    t.string   "name",            limit: 20
+    t.string   "email",           limit: 50,                 null: false
+    t.string   "password_digest",                            null: false
+    t.boolean  "isAdmin",                    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

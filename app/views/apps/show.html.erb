@@ -2,7 +2,7 @@
 <%= render "layouts/loggedIn" %>
 
 <div class="page-header">
-  <h1><%=	 current_user.name %>'s apps</h1>
+  <h1><%=	 current_user.name %>'s applications</h1>
   <%=  link_to "Add application", addApp_path %>
   <%	 if current_user.isAdmin %>
      <br> <%=  link_to "All applications", admin_path %>

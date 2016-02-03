@@ -5,7 +5,7 @@ class AppsController < ApplicationController
 
   def show
     #@apps = App.find_by_user_id(current_user.id)
-    @apps = User.find_by_id(current_user.id).App
+    @apps = User.find_by_id(current_user.id).apps
   end
 
   def new

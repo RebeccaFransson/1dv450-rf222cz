@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160201145244) do
 
-  create_table "apps", force: true do |t|
+  create_table "apps", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "app_name",   limit: 30
     t.string   "key",        limit: 100
@@ -21,11 +21,11 @@ ActiveRecord::Schema.define(version: 20160201145244) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 20
-    t.string   "email",           limit: 50,                 null: false
-    t.string   "password_digest",                            null: false
-    t.boolean  "isAdmin",                    default: false, null: false
+    t.string   "email",           limit: 50,                  null: false
+    t.string   "password_digest", limit: 255,                 null: false
+    t.boolean  "isAdmin",                     default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

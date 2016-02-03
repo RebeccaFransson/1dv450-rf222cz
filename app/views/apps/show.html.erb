@@ -1,0 +1,39 @@
+
+<%= render "layouts/loggedIn" %>
+
+<div class="page-header">
+  <h1><%=	 current_user.name %>'s apps</h1>
+  <%=  link_to "Add application", addApp_path %>
+  <%	 if current_user.isAdmin %>
+     <br> <%=  link_to "All applications", admin_path %>
+  <% end %>
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Key</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+      <%	@apps.each do |app| %>
+        <tr>
+            <td>
+              <strong>
+                <%=	 app.app_name %>
+              </strong>
+            </td>
+            <td>
+                <%=	 app.key %>
+            </td>
+            <td>
+                <%=  link_to "Remove app", removeApp_path(app), data: { confirm: 'Are you sure?' } %>
+            </td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
+
+

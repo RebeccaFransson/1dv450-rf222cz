@@ -1,23 +1,15 @@
-<p class="navbar-text navbar-right">
-  Signed in as <bold><%=	 @user.name %></bold>
-  <br>
-  <%=	 @user.email %>
-  <br>
-  <%=  link_to "Logout", logout_path %>
-</p>
+
+<%= render "layouts/loggedIn" %>
 
 <div class="page-header">
   <h1>Register application</h1>
-  <%	 if flash[:error] %>
-      <p><%=	  flash[:error] %></p>
-  <%	end  %>
-
-  <%=	  simple_form_for @app do |f| %>
-      <%=	 f.input :app_name %>
-      <%=	 f.button :submit %>
-  <% end %>
-
+  <%= link_to 'Back', apikeys_path %>
 </div>
+
+<%=	  simple_form_for @app do |f| %>
+    <%=	 f.input :app_name %>
+    <%=	 f.button :submit %>
+<% end %>
 
 
 

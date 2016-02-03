@@ -1,9 +1,0 @@
-<div class="page-header">
-  <h1>Alla Användare</h1>
-</div>
-<%	 @users.each do|u| %>
-    <h4><%=	 u.name %></h4><%=	u.id %><%=	u.email %>
-    <%	 u.App.each do |app| %>
-        <%= link_to app.app_name, app_path(app) %>
-    <%	 end %>
-<%	 end %>

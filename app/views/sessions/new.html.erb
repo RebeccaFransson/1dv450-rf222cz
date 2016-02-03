@@ -1,6 +1,7 @@
 
 <div class="page-header">
   <h1>Sign in</h1>
+  <%=	 link_to "Register new User", new_user_path %>
 </div>
 <%	 if flash[:error] %>
     <p><%=	  flash[:error] %></p>
@@ -12,4 +13,4 @@
     <%=	 f.button :submit, "Sign In" %>
 <% end %>
 
-<%=	 link_to "Register new User", new_user_path %>
+

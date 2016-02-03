@@ -8,12 +8,16 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #get '/login' => 'sessions#new'
-  get 'apikeys' => 'users#show', as: :apikeys
+  get 'apikeys' => 'apps#show', as: :apikeys
 
   post 'login' => 'sessions#login', as: :login
   get 'logout' => 'sessions#logout', as: :logout
 
   get 'addApp' => 'apps#new', as: :addApp
+
+  get 'admin' => 'admins#index', as: :admin
+
+  get 'removeApp' => 'apps#remove', as: :removeApp
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

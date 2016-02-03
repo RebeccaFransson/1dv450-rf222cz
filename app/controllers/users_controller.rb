@@ -4,10 +4,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-    @user = User.find(session[:userId])
-  end
-
   def new
     @user = User.new
   end
@@ -27,4 +23,5 @@ class UsersController < ApplicationController
   def user_params#strong parameters
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+
 end

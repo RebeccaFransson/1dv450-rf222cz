@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_many :App
+  has_many :apps
 
   #attr_accessor :password, :password_confirmation
 

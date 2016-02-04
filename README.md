@@ -9,6 +9,7 @@ Inloggningsuppgifter:
 
 ###Om du hellre vill starta applikationen från din egen dator
 (Ha ruby och on rails installerat på datorn!)
+
 1. Ta ner applikationen från github.
 2. Packa upp zipfilen
 3. Öppna en git bash(eller annan konsol) i mappen appliaktionen ligger i

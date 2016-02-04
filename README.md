@@ -4,8 +4,8 @@ Laborationer för kursen 1dv450 - webbramverk
 Publicerad applikation: [här](https://obscure-castle-94632.herokuapp.com/)
 
 Inloggningsuppgifter:
-admin@user.se - adminpassword
-rebecca@awesome.se - hejsan
+* admin@user.se - adminpassword
+* rebecca@awesome.se - hejsan
 
 ###Om du hellre vill starta applikationen från din egen dator
 (Ha ruby och on rails installerat på datorn!)

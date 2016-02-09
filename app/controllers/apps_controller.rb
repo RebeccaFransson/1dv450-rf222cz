@@ -1,10 +1,8 @@
 class AppsController < ApplicationController
 
-
   before_action :is_logged_in
 
   def show
-    #@apps = App.find_by_user_id(current_user.id)
     @apps = User.find_by_id(current_user.id).apps
   end
 
@@ -15,7 +13,7 @@ class AppsController < ApplicationController
   def create
     @app = App.new(app_params)
     @app.user_id = current_user.id
-    @app.key = [*('a'..'z'),*('0'..'9')].shuffle[0,50].join
+    @app.key = SecureRandom.hex #[*('a'..'z'),*('0'..'9')].shuffle[0,50].join
     if @app.save
       redirect_to apikeys_path
     else
@@ -33,7 +31,5 @@ class AppsController < ApplicationController
   def app_params#strong parameters
     params.require(:app).permit(:app_name)
   end
-
-
 
 end

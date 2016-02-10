@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  before_action :not_logged_in?
+
   def login
     user = User.find_by_email(params[:session][:email])
     if user && user.authenticate(params[:session][:password])
@@ -16,4 +18,10 @@ class SessionsController < ApplicationController
     redirect_to root_path, :error => "logged out"
   end
 
+  private
+  def not_logged_in?
+    if !current_user.nil?
+      redirect_to apikeys_path
+    end
+  end
 end

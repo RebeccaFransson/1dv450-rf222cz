@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
 
-  before_action :is_logged_in
+  before_action :is_logged_in?
 
   def show
     @apps = User.find_by_id(current_user.id).apps

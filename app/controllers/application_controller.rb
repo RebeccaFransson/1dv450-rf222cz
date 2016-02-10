@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     @current ||= User.find(session[:userId]) if session[:userId]
   end
 
-  def is_logged_in
+  def is_logged_in?
     if current_user.nil? then
       redirect_to root_path
     end

@@ -25,4 +25,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def not_logged_in?
+    if !current_user.nil?
+      redirect_to apikeys_path
+    end
+  end
+
 end

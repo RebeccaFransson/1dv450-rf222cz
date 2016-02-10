@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'apikeys' => 'apps#show', as: :apikeys
 
-  post 'login' => 'sessions#login', as: :login
+  post 'login' => 'sessions#create', as: :login
   get 'logout' => 'sessions#logout', as: :logout
 
   get 'addApp' => 'apps#new', as: :addApp

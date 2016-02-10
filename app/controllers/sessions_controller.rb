@@ -2,7 +2,11 @@ class SessionsController < ApplicationController
 
   before_action :not_logged_in?, only: [:new]
 
-  def login
+  def new
+
+  end
+
+  def create
     user = User.find_by_email(params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:userId] = user.id
@@ -13,10 +17,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def logout
-    session[:userId] = nil
-    redirect_to root_path, :error => "logged out"
-  end
+
 
 
 end

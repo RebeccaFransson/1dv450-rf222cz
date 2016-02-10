@@ -3,5 +3,5 @@
   <br>
   <%=	 current_user.email %>
   <br>
-  <%=  link_to "Logout", logout_path %>
+  <%=  link_to "Logout", logout_path, data: {no_turbolink: true} %>
 </p>

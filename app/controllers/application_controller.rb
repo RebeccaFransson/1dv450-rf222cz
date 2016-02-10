@@ -22,14 +22,14 @@ class ApplicationController < ActionController::Base
       if current_user.nil?
         redirect_to root_path
       else
-        redirect_to apikeys_path
+        redirect_to apps_path
       end
     end
   end
 
   def not_logged_in?
     if !current_user.nil?
-      redirect_to apikeys_path
+      redirect_to apps_path
     end
   end
 

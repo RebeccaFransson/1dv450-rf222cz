@@ -7,7 +7,7 @@
     <p><%=	  flash[:error] %></p>
 <%	end  %>
 
-<%=	  simple_form_for :session, url: login_path, html: {class: 'form-horizontal'} do |f| %>
+<%=	  simple_form_for :session, url: sessions_path, html: {class: 'form-horizontal'} do |f| %>
     <%=	 f.input :email %>
     <%=	 f.input :password %>
     <%=	 f.button :submit, "Sign In" %>

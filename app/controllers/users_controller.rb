@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:userId] = @user.id
-      redirect_to apikeys_path
+      redirect_to apps_path
     else
       render action: 'new'
     end

@@ -1,9 +1,9 @@
 class AppsController < ApplicationController
 
   before_action :is_logged_in?
-  before_action :set_cache_buster, only: [:show, :new, :create]
+  before_action :set_cache_buster, only: [:index, :new, :create]
 
-  def show
+  def index
     @apps = User.find_by_id(current_user.id).apps
   end
 
@@ -16,7 +16,7 @@ class AppsController < ApplicationController
     @app.user_id = current_user.id
     @app.key = SecureRandom.hex #[*('a'..'z'),*('0'..'9')].shuffle[0,50].join
     if @app.save
-      redirect_to apikeys_path
+      redirect_to apps_path
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class AppsController < ApplicationController
     if @app.user_id == current_user.id || isAdmin?
       @app.destroy
     end
-    redirect_to apikeys_path
+    redirect_to apps_path
   end
 
   private

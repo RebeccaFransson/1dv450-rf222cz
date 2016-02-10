@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def is_admin
+  def isAdmin?
     unless current_user.isAdmin?
       if current_user.nil?
         redirect_to root_path

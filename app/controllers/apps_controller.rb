@@ -23,7 +23,9 @@ class AppsController < ApplicationController
 
   def remove
     @app = App.find(params[:format])
-    @app.destroy
+    if @app.user_id == current_user.id || isAdmin?
+      @app.destroy
+    end
     redirect_to apikeys_path
   end
 

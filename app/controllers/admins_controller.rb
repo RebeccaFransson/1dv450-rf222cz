@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
 
-  before_action :is_admin
+  before_action :isAdmin?
 
   def index
     @apps = App.all

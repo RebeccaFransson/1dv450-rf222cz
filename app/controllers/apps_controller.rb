@@ -22,8 +22,9 @@ class AppsController < ApplicationController
     end
   end
 
-  def remove
-    @app = App.find(params[:format])
+  #def remove#villdöpa om denna t desroty
+    def destroy
+    @app = App.find(params[:id])
     if @app.user_id == current_user.id || isAdmin?
       @app.destroy
     end

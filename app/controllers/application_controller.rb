@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   end
 
   def is_logged_in?
-    redirect_to root_path if current_user.nil?
+    if current_user.nil? then
+      redirect_to root_path
+    end
   end
 
   def isAdmin?
@@ -26,7 +28,9 @@ class ApplicationController < ActionController::Base
   end
 
   def not_logged_in?
-    redirect_to apps_path if !current_user.nil?
+    if !current_user.nil?
+      redirect_to apps_path
+    end
   end
 
   protected

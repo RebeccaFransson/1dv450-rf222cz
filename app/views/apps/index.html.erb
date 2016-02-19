@@ -29,7 +29,7 @@
                 <%=	 app.key %>
             </td>
             <td>
-                <%=  link_to "Remove app", app_path(app), method: :delete, data: { confirm: 'Are you sure?' } %>
+                <%=  link_to "Remove app", removeApp_path(app), data: { confirm: 'Are you sure?' } %>
             </td>
         </tr>
       <% end %>

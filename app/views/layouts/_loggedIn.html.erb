@@ -3,5 +3,5 @@
   <br>
   <%=	 current_user.email %>
   <br>
-  <%=  link_to "Logout", session_path(current_user.id), method: :delete, data: {no_turbolink: true} %>
+  <%=  link_to "Logout", logout_path, data: {no_turbolink: true} %>
 </p>

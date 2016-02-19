@@ -30,7 +30,7 @@
           <%=	 User.find_by_id(app.user_id).name %>
         </td>
         <td>
-          <%=  link_to "Remove app", app_path(app), method: :delete,
+          <%=  link_to "Remove app", removeApp_path(app),
                        data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>

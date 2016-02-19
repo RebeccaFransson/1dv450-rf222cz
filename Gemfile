@@ -23,6 +23,9 @@ gem 'bcrypt', '~> 3.1.7'
 #serializing the JSON responses
 gem 'active_model_serializers'
 
+#versionshantering
+gem 'versionist'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

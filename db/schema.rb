@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219202126) do
+ActiveRecord::Schema.define(version: 20160220143214) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20160219202126) do
   create_table "locations", force: :cascade do |t|
     t.string   "city"
     t.string   "address"
-    t.integer  "lat"
-    t.integer  "lon"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,13 +33,27 @@ ActiveRecord::Schema.define(version: 20160219202126) do
   create_table "restaurants", force: :cascade do |t|
     t.string   "name",        limit: 100
     t.string   "description", limit: 250
-    t.string   "stars",       limit: 5
+    t.decimal  "stars"
     t.integer  "location_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
 
   add_index "restaurants", ["location_id"], name: "index_restaurants_on_location_id"
+
+  create_table "restaurants_tags", id: false, force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "tag_id"
+  end
+
+  add_index "restaurants_tags", ["restaurant_id"], name: "index_restaurants_tags_on_restaurant_id"
+  add_index "restaurants_tags", ["tag_id"], name: "index_restaurants_tags_on_tag_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",       limit: 50
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 20

@@ -3,7 +3,7 @@ class CreateRestaurants < ActiveRecord::Migration
     create_table :restaurants do |t|
       t.string :name, limit: 100
       t.string :description, limit: 250
-      t.string :stars, limit: 5
+      t.decimal :stars, limit: 5
       t.belongs_to :location, index: true
 
 

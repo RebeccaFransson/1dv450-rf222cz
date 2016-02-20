@@ -4,7 +4,7 @@ class CreateRestaurants < ActiveRecord::Migration
       t.string :name, limit: 100
       t.string :description, limit: 250
       t.decimal :stars, limit: 5
-      t.belongs_to :location, index: true
+      #t.belongs_to :locations, index: true
 
 
       t.timestamps null: false

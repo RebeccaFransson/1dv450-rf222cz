@@ -1,3 +1,6 @@
 class Location < ActiveRecord::Base
-  belongs_to :resturants
+  has_many :resturants
+
+  validates :city, presence: true, length: {within: 2..100}
+  validates :address, presence: true
 end

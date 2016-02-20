@@ -1,3 +1,5 @@
+require 'api_constraints'
+
 Rails.application.routes.draw do
 
   root 'sessions#new'
@@ -9,8 +11,8 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
 
-  namespace :api, defaults: { format: :json } do #, constraints: { subdomain: 'api' }, path: '/'
-    namespace :v1 do
+  namespace :api, defaults: { format: :json } do#, constraints: { subdomain: 'api' }, path: '' do
+    scope module: :v1, constrains: ApiConstraints.new(version: 1, default: true) do
       # We are going to list our resources here
       resources :restaurants, only: [:show, :index, :create, :new, :destroy]
       resources :locations, only: [:show, :index, :create, :new, :destroy]

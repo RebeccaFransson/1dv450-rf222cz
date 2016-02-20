@@ -26,8 +26,6 @@ gem 'responders', '~> 2.0'
 #serializing the JSON responses
 gem 'active_model_serializers'
 
-#versionshantering
-gem 'versionist'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -5,7 +5,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :address
       t.decimal :latitude
       t.decimal :longitude
-
+      t.belongs_to :restaurant, index: true
 
       t.timestamps null: false
     end

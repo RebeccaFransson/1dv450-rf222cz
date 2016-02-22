@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220163230) do
+ActiveRecord::Schema.define(version: 20160222141026) do
 
   create_table "apps", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,17 +26,12 @@ ActiveRecord::Schema.define(version: 20160220163230) do
     t.string   "address"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  create_table "locations_restaurants", force: :cascade do |t|
-    t.integer "locations_id"
-    t.integer "restaurants_id"
-  end
-
-  add_index "locations_restaurants", ["locations_id"], name: "index_locations_restaurants_on_locations_id"
-  add_index "locations_restaurants", ["restaurants_id"], name: "index_locations_restaurants_on_restaurants_id"
+  add_index "locations", ["restaurant_id"], name: "index_locations_on_restaurant_id"
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name",        limit: 100
@@ -47,12 +42,12 @@ ActiveRecord::Schema.define(version: 20160220163230) do
   end
 
   create_table "restaurants_tags", id: false, force: :cascade do |t|
-    t.integer "restaurants_id"
-    t.integer "tags_id"
+    t.integer "restaurant_id"
+    t.integer "tag_id"
   end
 
-  add_index "restaurants_tags", ["restaurants_id"], name: "index_restaurants_tags_on_restaurants_id"
-  add_index "restaurants_tags", ["tags_id"], name: "index_restaurants_tags_on_tags_id"
+  add_index "restaurants_tags", ["restaurant_id"], name: "index_restaurants_tags_on_restaurant_id"
+  add_index "restaurants_tags", ["tag_id"], name: "index_restaurants_tags_on_tag_id"
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       limit: 50

@@ -53,7 +53,8 @@ class Api::V1::LocationsController < Api::V1::BaseController
 
   private
   def location_params
-    params.require(:location).permit(:address_and_city, :restaurant_id)
+    json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
+    json_params.require(:location).permit(:address_and_city, :restaurant_id)
   end
 
 end

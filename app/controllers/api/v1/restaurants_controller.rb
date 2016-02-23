@@ -10,12 +10,30 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   end
 
   def index
-    respond_with Restaurant.all.sort_by { |e| e[:name]}
+    if restaurants_params[:tags].present?
+      respond_with Restaurant.where("tags = ?", params[:tags])
+    else
+      respond_with Restaurant.all.sort_by { |e| e[:name]}
+    end
   end
 
   def create
-    @rest = Restaurant.new(restaurants_params)
-    if Restaurant.find_by_name(@rest.name).present?
+    @rest = Restaurant.new(restaurants_params.except(:tags))
+
+    ##Is there any tags to this restaurant?
+    if restaurants_params[:tags].present?
+      tag_params = restaurants_params[:tags]
+
+      tag_params.each do |tag|
+        if Tag.exists?(tag)
+          @rest.tags << Tag.find_by_name(tag["name"])
+        else
+          @rest.tags << Tag.new(tag)
+        end
+      end
+    end
+
+    if Restaurant.exists?(@rest)
       render json: { errors: "This restaurant already exist in the database" }, status: :conflict
     else
       if @rest.save
@@ -50,7 +68,8 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   end
 
   def restaurants_params
-    params.require(:restaurant).permit(:name, :description, :stars)
+    json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
+    json_params.require(:restaurant).permit(:name, :description, :stars, tags: [:name])
   end
 
 end

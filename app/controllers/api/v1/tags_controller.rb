@@ -51,6 +51,7 @@ class Api::V1::TagsController < Api::V1::BaseController
   end
 
   def tag_params
-    params.require(:tag).permit(:name)
+    json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
+    json_params.require(:tag).permit(:name)
   end
 end

@@ -19,23 +19,33 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       render json: { errors: "This restaurant already exist in the database" }, status: :conflict
     else
       if @rest.save
-        respond_with :api, @rest, status: 201
+        respond_with :api, @rest, status: :created
       else
         render json: { errors: @rest.errors.messages }, status: :bad_request
       end
     end
   end
 
-  #def update
-  #  respond_with Restaurant.update(params[:id], params[:products])
-  #end
+  def update
+    if @rest = Restaurant.find_by_id(params[:id])
+      if @rest.update(restaurants_params)
+        respond_with :api, @tag do |format|
+          format.json { render json: { action: "update", restaurant: {name: @rest.name, description: @rest.description, locations: @rest.locations} }, status: :created }
+        end
+      else
+        render json: { errors: @rest.errors.messages }, status: :bad_request
+      end
+    else
+      render json: { errors: "Couldn't find restaurant. Sure you wrote the right Id?" }, status: :not_found
+    end
+  end
 
   def destroy
     if @rest = Restaurant.find_by_id(params[:id])
       @rest.destroy
       render json: { action: "destroy", message: "The restaurant '#{@rest.name}' is now removed.", status: :ok}
     else
-      render json: { errors: "Cound't find restaurant. Sure you wrote the right Id?" }, status: :not_found
+      render json: { errors: "Couldn't find restaurant. Sure you wrote the right Id?" }, status: :not_found
     end
   end
 

@@ -17,7 +17,7 @@ class Api::V1::TagsController < Api::V1::BaseController
     @tag = Tag.new(tag_params)
     if Tag.find_by_name(@tag.name).nil?
       if @tag.save
-        respond_with :api, @tag, status: 201
+        respond_with :api, @tag, status: :created
       else
         render json: { errors: @tag.errors.messages }, status: :bad_request
       end
@@ -27,12 +27,26 @@ class Api::V1::TagsController < Api::V1::BaseController
 
   end
 
+  def update
+    if @tag = Tag.find_by_id(params[:id])
+      if @tag.update(tag_params)
+        respond_with :api, @tag do |format|
+          format.json { render json: { action: "update", tag_name: @tag.name }, status: :created }
+        end
+      else
+        render json: { errors: @tag.errors.messages }, status: :bad_request
+      end
+    else
+      render json: { errors: "Couldn't find tag. Sure you wrote the right Id?" }, status: :not_found
+    end
+  end
+
   def destroy
     if @tag = Tag.find_by_id(params[:id])
       @tag.destroy
       render json: { action: "destroy", message: "The tag '#{@tag.name}' is now removed.", status: :ok}
     else
-      render json: { errors: "Cound't find tag. Sure you wrote the right Id?" }, status: :not_found
+      render json: { errors: "Couldn't find tag. Sure you wrote the right Id?" }, status: :not_found
     end
   end
 

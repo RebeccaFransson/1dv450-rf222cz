@@ -27,16 +27,26 @@ class Api::V1::LocationsController < Api::V1::BaseController
     end
   end
 
-  #def update
-  #  respond_with Location.update(params[:id], params[:products])
-  #end
+  def update
+    if @loc = Location.find_by_id(params[:id])
+      if @loc.update(location_params)
+        respond_with :api, @loc do |format|
+          format.json { render json: { action: "update", tag_name: @loc.address_and_city }, status: :created }
+        end
+      else
+        render json: { errors: @loc.errors.messages }, status: :bad_request
+      end
+    else
+      render json: { errors: "Couldn't find tag. Sure you wrote the right Id?" }, status: :not_found
+    end
+  end
 
   def destroy
     if @loc = Location.find_by_id(params[:id])
       @loc.destroy
       render json: { action: "destroy", message: "The location '#{@loc.name}' is now removed.", status: :ok}
     else
-      render json: { errors: "Cound't find location. Sure you wrote the right Id?" }, status: :not_found
+      render json: { errors: "Couldn't find location. Sure you wrote the right Id?" }, status: :not_found
     end
   end
 

@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do#, constraints: { subdomain: 'api' }, path: '' do
     scope module: :v1, constrains: ApiConstraints.new(version: 1, default: true) do
       # We are going to list our resources here
-      resources :restaurants, only: [:show, :index, :create, :new, :destroy]
-      resources :locations, only: [:show, :index, :create, :new, :destroy]
-      resources :tags, only: [:show, :index, :create, :new, :destroy]
+      resources :restaurants, only: [:show, :index, :create, :new, :destroy, :update]
+      resources :locations, only: [:show, :index, :create, :new, :destroy, :update]
+      resources :tags, only: [:show, :index, :create, :new, :destroy, :update]
     end
   end
 end

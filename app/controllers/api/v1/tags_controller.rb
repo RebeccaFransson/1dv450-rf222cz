@@ -2,10 +2,10 @@ class Api::V1::TagsController < Api::V1::BaseController
 
   def show
     @tag = Tag.find_by_id(params[:id])
-    unless @tag.nil?
-      respond_with :api, @tag
-    else
+    if @tag.nil?
       render json: { errors: "Couldn't find tag. Sure you wrote the right Id?" }, status: :not_found
+    else
+      respond_with :api, @tag
     end
   end
 

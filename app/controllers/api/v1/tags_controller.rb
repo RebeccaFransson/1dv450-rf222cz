@@ -15,8 +15,7 @@ class Api::V1::TagsController < Api::V1::BaseController
 
   def create
     @tag = Tag.new(tag_params)
-    @duplicated = Tag.find_by_name(@tag.name)
-    if @duplicated.nil?
+    if Tag.find_by_name(@tag.name).nil?
       if @tag.save
         respond_with :api, @tag, status: 201
       else
@@ -29,7 +28,12 @@ class Api::V1::TagsController < Api::V1::BaseController
   end
 
   def destroy
-    respond_with Restaurant.destroy(params[:id])
+    if @tag = Tag.find_by_id(params[:id])
+      @tag.destroy
+      render json: { action: "destroy", message: "The tag '#{@tag.name}' is now removed.", status: :ok}
+    else
+      render json: { errors: "Cound't find tag. Sure you wrote the right Id?" }, status: :not_found
+    end
   end
 
   def tag_params

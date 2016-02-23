@@ -15,9 +15,8 @@ class Api::V1::LocationsController < Api::V1::BaseController
 
   def create
     @loc = Location.new(location_params)
-    @duplicated = Location.where(address_and_city: @loc.address_and_city)
 
-    unless @duplicated.present?
+    unless Location.where(address_and_city: @loc.address_and_city).present?
       if @loc.save
         respond_with :api, @loc, status: :created
       else
@@ -33,7 +32,12 @@ class Api::V1::LocationsController < Api::V1::BaseController
   #end
 
   def destroy
-    respond_with Location.destroy(params[:id])
+    if @loc = Location.find_by_id(params[:id])
+      @loc.destroy
+      render json: { action: "destroy", message: "The location '#{@loc.name}' is now removed.", status: :ok}
+    else
+      render json: { errors: "Cound't find location. Sure you wrote the right Id?" }, status: :not_found
+    end
   end
 
 

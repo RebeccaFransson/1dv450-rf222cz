@@ -1,7 +1,12 @@
 class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def show
-    respond_with Restaurant.find(params[:id])
+    @rest = Restaurant.find_by_id(params[:id])
+    unless @rest.nil?
+      respond_with :api, @rest
+    else
+      render json: { errors: "Cound't find restaurant. Sure you wrote the right Id?" }, status: :not_found
+    end
   end
 
   def index
@@ -10,10 +15,16 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def create
     @rest = Restaurant.new(restaurants_params)
-    if @rest.save
-      respond_with :api, @rest, status: 201
+    @duplicated = Restaurant.find_by_name(@rest.name)
+
+    unless @duplicated.present?
+      if @rest.save
+        respond_with :api, @rest, status: 201
+      else
+        render json: { errors: @rest.errors.messages }, status: :bad_request
+      end
     else
-      respond_with :api, @rest, status: 400
+      render json: { errors: "This restaurant already exist in the database" }, status: :conflict
     end
   end
 

@@ -26,6 +26,8 @@ gem 'responders', '~> 2.0'
 #serializing the JSON responses
 gem 'active_model_serializers'
 
+#create lat and lon
+gem 'geocoder'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

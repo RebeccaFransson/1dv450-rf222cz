@@ -5,13 +5,15 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   end
 
   def index
-    respond_with Restaurant.all
+    respond_with Restaurant.all.sort_by { |e| e[:name]}
   end
 
   def create
     @rest = Restaurant.new(restaurants_params)
     if @rest.save
-      respond_with :api, @rest
+      respond_with :api, @rest, status: 201
+    else
+      respond_with :api, @rest, status: 400
     end
   end
 

@@ -1,6 +1,4 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :city, :address, :latitude, :longitude
-
-  #has_one :restaurant
+  attributes :address_and_city, :latitude, :longitude
 
 end

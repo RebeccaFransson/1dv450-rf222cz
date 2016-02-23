@@ -1,8 +1,7 @@
 class CreateLocations < ActiveRecord::Migration
   def change
     create_table :locations do |t|
-      t.string :city
-      t.string :address
+      t.string :address_and_city
       t.decimal :latitude
       t.decimal :longitude
       t.belongs_to :restaurant, index: true

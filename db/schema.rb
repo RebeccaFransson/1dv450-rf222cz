@@ -22,13 +22,12 @@ ActiveRecord::Schema.define(version: 20160222141026) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string   "city"
-    t.string   "address"
+    t.string   "address_and_city"
     t.decimal  "latitude"
     t.decimal  "longitude"
     t.integer  "restaurant_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "locations", ["restaurant_id"], name: "index_locations_on_restaurant_id"

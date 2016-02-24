@@ -2,6 +2,7 @@ class Api::V1::TagsController < Api::V1::BaseController
 
   before_action :offset_params, only: [:index]
   before_action :key_access
+  before_action :authenticate, only: [:create, :destroy, :update]
 
   def show
     @tag = Tag.find_by_id(params[:id])
@@ -21,6 +22,7 @@ class Api::V1::TagsController < Api::V1::BaseController
     respond_with :api, @response, status: :ok
   end
 
+=begin
   def create
     @tag = Tag.new(tag_params)
     if Tag.find_by_name(@tag.name).nil?
@@ -34,7 +36,7 @@ class Api::V1::TagsController < Api::V1::BaseController
     end
 
   end
-
+=end
   def update
     if @tag = Tag.find_by_id(params[:id])
       if @tag.update(tag_params)
@@ -56,7 +58,7 @@ class Api::V1::TagsController < Api::V1::BaseController
     else
       render json: { errors: "Couldn't find tag. Sure you wrote the right Id?" }, status: :not_found
     end
-  end
+    end
 
   def tag_params
     json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )

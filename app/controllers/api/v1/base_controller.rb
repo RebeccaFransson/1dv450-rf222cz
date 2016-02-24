@@ -1,6 +1,7 @@
 class Api::V1::BaseController < ApplicationController
   include Knock::Authenticable
-  protect_from_forgery with: :null_session
+
+  protect_from_forgery with: :null_sessio
 
   respond_to :json, :xml
 
@@ -17,7 +18,6 @@ class Api::V1::BaseController < ApplicationController
 
   def key_access
     key = App.find_by(key: params[:key])
-
     unless key
       render json: { error: "Your api-key is invalid" }, status: :unauthorized
     end

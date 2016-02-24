@@ -4,6 +4,8 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   before_action :authenticate, only: [:create, :destroy, :update]
   before_action :key_access
 
+  skip_before_action :verify_authenticity_token, only: [:create, :destroy, :update]
+
   def show
     @rest = Restaurant.find_by_id(params[:id])
     if @rest.nil?
@@ -39,7 +41,6 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
     #@rest = @rest.search(params[:query]) if params[:query].present?
 
     if @rest.present?
-
       # Offset and limit
       @rest = @rest.drop(@offset)
       @rest = @rest.take(@limit)

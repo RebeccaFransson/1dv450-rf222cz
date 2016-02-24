@@ -2,7 +2,7 @@
 user = User.create(name: "Admin", email: "admin@user.se", password: "adminpassword", password_confirmation: "adminpassword", isAdmin: true)
 App.create(user_id: user.id, app_name: "Restuarant map app", key: "fb3737b1c0d01edd92cf64262bc8efdf")
 
-creator = Creator.create(name: "Tobias", password: "hejsan", password_confirmation: "hejsan")
+creator = Creator.create(name: "Tobias", password: "hejsan", password_confirmation: "hejsan", email: "tobias@restaurantmap.com")
 
 restaurant = Restaurant.new(name: "Vegan Good Store", description: "Buy vegan food", stars: 4, creator_id: creator.id)
 restaurant2 = Restaurant.new(name: "Vegan yum yum", description: "The best vegan food in town", stars: 5, creator_id: creator.id)

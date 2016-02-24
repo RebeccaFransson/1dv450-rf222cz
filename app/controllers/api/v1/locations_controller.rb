@@ -2,6 +2,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 
   before_action :offset_params, only: [:index]
   before_action :key_access
+  #before_action :authenticate, only: [:create, :destroy, :update]
 
   def show
     @loc = Location.find_by_id(params[:id])
@@ -34,7 +35,6 @@ class Api::V1::LocationsController < Api::V1::BaseController
 
   def create
     @loc = Location.new(location_params)
-
     if Location.where(address_and_city: @loc.address_and_city).present?
       render json: { errors: "This location already exist in the database" }, status: :conflict
     else

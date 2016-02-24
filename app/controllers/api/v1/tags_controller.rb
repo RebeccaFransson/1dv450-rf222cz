@@ -1,5 +1,8 @@
 class Api::V1::TagsController < Api::V1::BaseController
 
+  before_action :offset_params, only: [:index]
+  before_action :key_access
+
   def show
     @tag = Tag.find_by_id(params[:id])
     if @tag.nil?
@@ -10,7 +13,12 @@ class Api::V1::TagsController < Api::V1::BaseController
   end
 
   def index
-    respond_with Tag.all
+    @tag = Tag.all
+    @tag = @tag.drop(@offset)
+    @tag = @tag.take(@limit)
+
+    @response = { :offset => @offset, :limit => @limit, :amount => @tag.count, :tags => @tag }
+    respond_with :api, @response, status: :ok
   end
 
   def create

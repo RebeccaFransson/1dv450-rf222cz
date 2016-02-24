@@ -1,9 +1,10 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
+  mount Knock::Engine => "/knock"
+
 
   root 'sessions#new'
-
 
   resources :apps, only: [:index, :create, :new, :destroy]
   resources :admins, only: [:index]
@@ -21,7 +22,9 @@ Rails.application.routes.draw do
       resources :tags, only: [:show, :index, :create, :new, :destroy, :update] do
         resources :restaurants, only: [:index]
       end
-      resources :creators, only: [:show, :index, :create, :new, :destroy, :update]
+      resources :creators, only: [:show, :index, :create, :new, :destroy, :update] do
+        resources :restaurants, only: [:index]
+      end
     end
   end
 end

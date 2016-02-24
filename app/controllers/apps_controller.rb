@@ -4,7 +4,7 @@ class AppsController < ApplicationController
   before_action :set_cache_buster, only: [:index, :new, :create]
 
   def index
-    @apps = User.find_by_id(current_user.id).apps
+    @apps = User.find_by_id(logged_in_user.id).apps
   end
 
   def new
@@ -13,7 +13,7 @@ class AppsController < ApplicationController
 
   def create
     @app = App.new(app_params)
-    @app.user_id = current_user.id
+    @app.user_id = logged_in_user.id
     @app.key = SecureRandom.hex #[*('a'..'z'),*('0'..'9')].shuffle[0,50].join
     if @app.save
       redirect_to apps_path
@@ -25,7 +25,7 @@ class AppsController < ApplicationController
   #def remove#villdöpa om denna t desroty
     def destroy
     @app = App.find(params[:id])
-    if @app.user_id == current_user.id || isAdmin?
+    if @app.user_id == logged_in_user.id || isAdmin?
       @app.destroy
     end
     redirect_to apps_path

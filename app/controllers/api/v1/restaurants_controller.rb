@@ -1,31 +1,56 @@
 class Api::V1::RestaurantsController < Api::V1::BaseController
 
+  before_action :offset_params, only: [:index]
+  before_action :authenticate, only: [:create, :destroy, :update]
+  before_action :key_access
+
   def show
     @rest = Restaurant.find_by_id(params[:id])
     if @rest.nil?
-      render json: { errors: "Cound't find restaurant. Sure you wrote the right Id?" }, status: :not_found
+      render json: { errors: "Couldn't find restaurant. Sure you wrote the right Id?" }, status: :not_found
     else
       respond_with :api, @rest
     end
   end
 
   def index
-
-    # Offset and limit
-    #@rest = @rest.drop(@offset)
-    #@rest = @rest.take(@limit)
-
-    #render json: { errors: params[:tag_id] }, status: :conflict
     if params[:tag_id].present?
       @tag = Tag.find_by_id(params[:tag_id])
       @rest = @tag.restaurants
-    #elsif
+    elsif params[:creator_id]
+      @creator = Creator.find_by_id(params[:creator_id])
+      @rest = @creator.restaurants
+    elsif params[:lat] && params[:lon]
+      @loc = Location.near([params[:lat], params[:lon]], 50)
+      @rest = []
+      @loc.each do |loc|
+        @rest.push(Restaurant.find_by_id(loc.restaurant_id))
+      end
+    elsif params[:address_and_city]
+      @loc = Location.near(params[:address_and_city], 50)
+      @rest = []
+      @loc.each do |loc|
+        @rest.push(Restaurant.find_by_id(loc.restaurant_id))
+      end
     else
-      #respond_with Restaurant.all.sort_by { |e| e[:name]}
+      @rest = Restaurant.all.sort_by { |e| e[:name]}
     end
 
-    #@response = { :offset => @offset, :limit => @limit, :amount => @fish_catches.count, :catches => @fish_catches }
-    respond_with :api, @rest, status: :ok
+    #@rest = @rest.search(params[:query]) if params[:query].present?
+
+    if @rest.present?
+
+      # Offset and limit
+      @rest = @rest.drop(@offset)
+      @rest = @rest.take(@limit)
+
+      @response = { :offset => @offset, :limit => @limit, :amount => @rest.count, :restaurants => @rest }
+      respond_with :api, @response, status: :ok
+    else
+      render json: { errors: "Couldn't find any restaurants." }, status: :not_found
+    end
+
+
   end
 
   def create

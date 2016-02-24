@@ -1,11 +1,11 @@
 class Api::V1::BaseController < ApplicationController
-  #before_filter :parse_request, :authenticate_user_from_token!
+  include Knock::Authenticable
   protect_from_forgery with: :null_session
 
   respond_to :json, :xml
 
   OFFSET = 0
-  LIMIT = 20
+  LIMIT = 15
 
   def offset_params
     @offset = params[:offset].to_i if params[:offset].present?
@@ -15,5 +15,12 @@ class Api::V1::BaseController < ApplicationController
     @limit  ||= LIMIT
   end
 
+  def key_access
+    key = App.find_by(key: params[:key])
+
+    unless key
+      render json: { error: "Your api-key is invalid" }, status: :unauthorized
+    end
+  end
 
 end

@@ -5,19 +5,19 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
-  helper_method :current_user
+  helper_method :logged_in_user
 
-  def current_user#om instansen inte är satt körs korden bakom ||
+  def logged_in_user #om instansen inte är satt körs korden bakom ||
     @current ||= User.find(session[:userId]) if session[:userId]
   end
 
   def is_logged_in?
-    redirect_to root_path if current_user.nil?
+    redirect_to root_path if logged_in_user.nil?
   end
 
   def isAdmin?
-    unless current_user.isAdmin?
-      if current_user.nil?
+    unless logged_in_user.isAdmin?
+      if logged_in_user.nil?
         redirect_to root_path
       else
         redirect_to apps_path
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_logged_in?
-    redirect_to apps_path if !current_user.nil?
+    redirect_to apps_path if !logged_in_user.nil?
   end
 
   protected

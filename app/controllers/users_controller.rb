@@ -2,10 +2,6 @@ class UsersController < ApplicationController
 
   before_action :not_logged_in?, only: [:new, :create]
 
-  def index
-    @users = User.all
-  end
-
   def new
     @user = User.new
   end

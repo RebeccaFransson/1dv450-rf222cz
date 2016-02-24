@@ -29,6 +29,9 @@ gem 'active_model_serializers'
 #create lat and lon
 gem 'geocoder'
 
+#wetoken
+gem 'knock'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

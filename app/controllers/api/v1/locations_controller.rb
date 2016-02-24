@@ -1,5 +1,8 @@
 class Api::V1::LocationsController < Api::V1::BaseController
 
+  before_action :offset_params, only: [:index]
+  before_action :key_access
+
   def show
     @loc = Location.find_by_id(params[:id])
     if @loc.nil?
@@ -14,6 +17,17 @@ class Api::V1::LocationsController < Api::V1::BaseController
     if params[:restaurant_id].present?
       @rest = Restaurant.find_by_id(params[:restaurant_id])
       @loc = @rest.locations
+    end
+
+    if @loc.present?
+      # Offset and limit
+      @loc = @loc.drop(@offset)
+      @loc = @loc.take(@limit)
+
+      @response = { :offset => @offset, :limit => @limit, :amount => @loc.count, :locations => @loc }
+      respond_with :api, @response, status: :ok
+    else
+      render json: { errors: "Couldn't find any restaurants." }, status: :not_found
     end
 
   end

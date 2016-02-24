@@ -10,7 +10,12 @@ class Api::V1::LocationsController < Api::V1::BaseController
   end
 
   def index
-    respond_with Location.all
+    #respond_with Location.all
+    if params[:restaurant_id].present?
+      @rest = Restaurant.find_by_id(params[:restaurant_id])
+      @loc = @rest.locations
+    end
+
   end
 
   def create

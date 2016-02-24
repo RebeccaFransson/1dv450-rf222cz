@@ -19,7 +19,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
     if params[:tag_id].present?
       @tag = Tag.find_by_id(params[:tag_id])
       @rest = @tag.restaurants
-
+    #elsif
     else
       #respond_with Restaurant.all.sort_by { |e| e[:name]}
     end

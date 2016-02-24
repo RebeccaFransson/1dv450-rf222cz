@@ -56,6 +56,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def create
     @rest = Restaurant.new(restaurants_params.except(:tags))
+    @rest.creator_id = current_user.id
 
     ##Is there any tags to this restaurant?
     if restaurants_params[:tags].present?

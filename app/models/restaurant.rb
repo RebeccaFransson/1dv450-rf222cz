@@ -6,5 +6,6 @@ class Restaurant < ActiveRecord::Base
   validates :name,        presence: true, length: {within: 2..100}
   validates :description, presence: true, length: {within: 10..250}
   validates :stars,       presence: true, length: {within: 1..5}
+  validates :creator_id,  presence: true
 
 end

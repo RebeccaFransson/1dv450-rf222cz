@@ -1,3 +1,3 @@
 class CreatorSerializer < ActiveModel::Serializer
-  attributes :name
+  attributes :name, :email
 end

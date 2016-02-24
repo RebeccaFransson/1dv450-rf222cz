@@ -1,7 +1,7 @@
 class Api::V1::BaseController < ApplicationController
   include Knock::Authenticable
 
-  protect_from_forgery with: :null_sessio
+  protect_from_forgery with: :null_session
 
   respond_to :json, :xml
 

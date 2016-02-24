@@ -10,11 +10,22 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   end
 
   def index
-    if restaurants_params[:tags].present?
-      respond_with Restaurant.where("tags = ?", params[:tags])
+
+    # Offset and limit
+    #@rest = @rest.drop(@offset)
+    #@rest = @rest.take(@limit)
+
+    #render json: { errors: params[:tag_id] }, status: :conflict
+    if params[:tag_id].present?
+      @tag = Tag.find_by_id(params[:tag_id])
+      @rest = @tag.restaurants
+
     else
-      respond_with Restaurant.all.sort_by { |e| e[:name]}
+      #respond_with Restaurant.all.sort_by { |e| e[:name]}
     end
+
+    #@response = { :offset => @offset, :limit => @limit, :amount => @fish_catches.count, :catches => @fish_catches }
+    respond_with :api, @rest, status: :ok
   end
 
   def create

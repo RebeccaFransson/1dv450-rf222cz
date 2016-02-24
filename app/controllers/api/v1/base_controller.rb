@@ -4,7 +4,16 @@ class Api::V1::BaseController < ApplicationController
 
   respond_to :json, :xml
 
-  private
+  OFFSET = 0
+  LIMIT = 20
+
+  def offset_params
+    @offset = params[:offset].to_i if params[:offset].present?
+    @limit = params[:limit].to_i if params[:limit].present?
+
+    @offset ||= OFFSET
+    @limit  ||= LIMIT
+  end
 
 
 end

@@ -29,7 +29,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
     elsif params[:address_and_city]
-      loc = Location.near(params[:address_and_city], 50)
+      loc = Location.near(params[:address_and_city].to_f, 50)
       rest = []
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
@@ -41,8 +41,6 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       rest = Restaurant.all.sort_by { |e| e[:name]}
 
     end
-
-    #rest = rest.search(params[:query]) if params[:query].present?
 
     if rest.present?
       # Offset and limit
@@ -100,11 +98,10 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def update
     if rest = Restaurant.find_by_id(params[:id])
-      if rest.update(restaurants_params)
+      if rest.update(restaurants_params.except(:tags, :locations))
         restloc = rest.locations.as_json(only: [:id, :address_and_city, :latitude, :longitude])
-        respond_with :api, tag do |format|
+        respond_with :api, rest do |format|
           format.json { render json: { action: "update", restaurant: {id: rest.id, name: rest.name, description: rest.description, locations: restloc} }, status: :created }
-
         end
       else
         render json: { errors: rest.errors.messages }, status: :bad_request

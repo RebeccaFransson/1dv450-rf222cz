@@ -2,7 +2,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 
   before_action :offset_params, only: [:index]
   before_action :key_access
-  #before_action :authenticate, only: [:create, :destroy, :update]
+  before_action :authenticate, only: [:create, :destroy, :update]
 
   def show
     @loc = Location.find_by_id(params[:id])
@@ -18,6 +18,8 @@ class Api::V1::LocationsController < Api::V1::BaseController
     if params[:restaurant_id].present?
       @rest = Restaurant.find_by_id(params[:restaurant_id])
       @loc = @rest.locations
+    else
+      @loc = Location.all
     end
 
     if @loc.present?
@@ -28,7 +30,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
       #@response = { :offset => @offset, :limit => @limit, :amount => @loc.count, :locations => @loc }
       respond_with :api, @loc, status: :ok
     else
-      render json: { errors: "Couldn't find any restaurants." }, status: :not_found
+      render json: { errors: "Couldn't find any locations." }, status: :not_found
     end
 
   end
@@ -49,6 +51,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
   def update
     if @loc = Location.find_by_id(params[:id])
       if @loc.update(location_params)
+        @loc = @loc.as_json(only: [:id, :address_and_city, :latitude, :longitude])
         respond_with :api, @loc do |format|
           format.json { render json: { action: "update", updated: @loc }, status: :created }
         end
@@ -73,7 +76,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
   private
   def location_params
     json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-    json_params.require(:location).permit(:address_and_city, :restaurant_id)
+    json_params.require(:location).permit(:address_and_city)
   end
 
 end

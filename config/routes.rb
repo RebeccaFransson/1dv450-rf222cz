@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       # We are going to list our resources here
       resources :restaurants, only: [:show, :index, :create, :new, :destroy, :update] do
         resources :locations, only: [:index]
+        resources :tags, only: [:index]
       end
       resources :locations, only: [:show, :index, :create, :new, :destroy, :update]
       resources :tags, only: [:show, :index, :create, :new, :destroy, :update] do

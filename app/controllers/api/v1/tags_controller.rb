@@ -40,8 +40,9 @@ class Api::V1::TagsController < Api::V1::BaseController
   def update
     if @tag = Tag.find_by_id(params[:id])
       if @tag.update(tag_params)
+        @tag = @tag.as_json(only: [:id, :name])
         respond_with :api, @tag do |format|
-          format.json { render json: { action: "update", tag_name: @tag.name }, status: :created }
+          format.json { render json: { action: "update", tag_name: @tag }, status: :created }
         end
       else
         render json: { errors: @tag.errors.messages }, status: :bad_request

@@ -85,9 +85,9 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   def update
     if @rest = Restaurant.find_by_id(params[:id])
       if @rest.update(restaurants_params)
-        @restloc = @rest.locations.as_json(only: [:address_and_city, :latitude, :longitude])
+        @restloc = @rest.locations.as_json(only: [:id, :address_and_city, :latitude, :longitude])
         respond_with :api, @tag do |format|
-          format.json { render json: { action: "update", restaurant: {name: @rest.name, description: @rest.description, locations: @restloc} }, status: :created }
+          format.json { render json: { action: "update", restaurant: {id: @rest.id, name: @rest.name, description: @rest.description, locations: @restloc} }, status: :created }
 
         end
         #respond_with :api, @rest, status: :ok

@@ -28,12 +28,14 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
+=begin
     elsif params[:address_and_city]
       loc = Location.near(params[:address_and_city].to_f, 50)
       rest = []
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
+=end
     elsif params[:query]
       param = params[:query]
       rest = Restaurant.where("name like ?", "%#{param}%")

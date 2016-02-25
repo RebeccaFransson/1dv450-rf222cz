@@ -19,7 +19,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
     if params[:tag_id].present?
       tag = Tag.find_by_id(params[:tag_id])
       rest = tag.restaurants
-    elsif params[:creator_id]
+    elsif params[:creator_id].present?
       creator = Creator.find_by_id(params[:creator_id])
       rest = creator.restaurants
     elsif params[:lat] && params[:lon]
@@ -28,15 +28,15 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
-=begin
-    elsif params[:address_and_city]
+
+    elsif params[:address_and_city].present?
       loc = Location.near(params[:address_and_city].to_f, 50)
       rest = []
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
-=end
-    elsif params[:query]
+
+    elsif params[:query].present?
       param = params[:query]
       rest = Restaurant.where("name like ?", "%#{param}%")
     else

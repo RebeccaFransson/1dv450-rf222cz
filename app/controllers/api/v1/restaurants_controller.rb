@@ -63,15 +63,15 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       tag_params = restaurants_params[:tags]
 
       tag_params.each do |tag|
-        if Tag.exists?(tag)
+        if Tag.find_by_name(tag["name"]).present?
           @rest.tags << Tag.find_by_name(tag["name"])
         else
-          @rest.tags << Tag.new(tag)
+          @rest.tags << Tag.create(tag)
         end
       end
     end
 
-    if Restaurant.exists?(@rest)
+    if Restaurant.find_by_name(@rest.name).present?
       render json: { errors: "This restaurant already exist in the database" }, status: :conflict
     else
       if @rest.save

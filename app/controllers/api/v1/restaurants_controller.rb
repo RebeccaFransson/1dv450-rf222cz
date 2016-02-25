@@ -35,12 +35,11 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
     elsif params[:query].present?
-      #param = params[:query]
-      #rest = Restaurant.where("name LIKE ?", "%#{param}%")
-      #rest = Restaurant.where(["name LIKE ?", param])
-      param =  params[:query].gsub('%', '\%').gsub('_', '\_')
-      rest = Restaurant.where(["name like ?", param + "%"])
-      render json: {param: param, rest: rest}
+      ##Cant get this to work on the live version, du you know what could be wrong?
+      param = params[:query]
+      rest = Restaurant.where("name LIKE ?", "%#{param}%")
+      #param =  params[:query].gsub('%', '\%').gsub('_', '\_')
+      #rest = Restaurant.where(["name like ?", param + "%"])
     else
       rest = Restaurant.all.sort_by { |e| e[:name]}
 
@@ -52,9 +51,9 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       rest = rest.take(@limit)
 
       #@response = { :offset => @offset, :limit => @limit, :amount => @rest.count, :restaurants => @rest }
-      #respond_with :api, rest, status: :ok
+      respond_with :api, rest, status: :ok
     else
-      #render json: { errors: "Couldn't find any restaurants." }, status: :not_found
+      render json: { errors: "Couldn't find any restaurants." }, status: :not_found
     end
 
 

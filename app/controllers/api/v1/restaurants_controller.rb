@@ -35,8 +35,11 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
     elsif params[:query].present?
-      param = params[:query]
-      rest = Restaurant.where("name like ?", "%#{param}%")
+      #param = params[:query]
+      #rest = Restaurant.where("name LIKE ?", "%#{param}%")
+      #rest = Restaurant.where(["name LIKE ?", param])
+      param =  params[:query].gsub('%', '\%').gsub('_', '\_')
+      rest = Restaurant.where(["name like ?", param + "%"])
       render json: {param: param, rest: rest}
     else
       rest = Restaurant.all.sort_by { |e| e[:name]}

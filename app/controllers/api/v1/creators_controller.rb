@@ -16,7 +16,7 @@ class Api::V1::CreatorsController <  Api::V1::BaseController
     @creators = @creators.drop(@offset)
     @creators = @creators.take(@limit)
 
-    @response = { offset: @offset, limit: @limit, amount: @creators.count, creators: @creators}
-    respond_with :api, @response, status: :ok
+    #@response = { offset: @offset, limit: @limit, amount: @creators.count, creators: @creators}
+    respond_with :api, @creators, status: :ok
   end
 end

@@ -18,8 +18,8 @@ class Api::V1::TagsController < Api::V1::BaseController
     @tag = @tag.drop(@offset)
     @tag = @tag.take(@limit)
 
-    @response = { :offset => @offset, :limit => @limit, :amount => @tag.count, :tags => @tag }
-    respond_with :api, @response, status: :ok
+    #@response = { :offset => @offset, :limit => @limit, :amount => @tag.count, :tags => @tag }
+    respond_with :api, @tag, status: :ok
   end
 
 =begin

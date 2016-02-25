@@ -45,8 +45,8 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       @rest = @rest.drop(@offset)
       @rest = @rest.take(@limit)
 
-      @response = { :offset => @offset, :limit => @limit, :amount => @rest.count, :restaurants => @rest }
-      respond_with :api, @response, status: :ok
+      #@response = { :offset => @offset, :limit => @limit, :amount => @rest.count, :restaurants => @rest }
+      respond_with :api, @rest, status: :ok
     else
       render json: { errors: "Couldn't find any restaurants." }, status: :not_found
     end
@@ -85,9 +85,12 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   def update
     if @rest = Restaurant.find_by_id(params[:id])
       if @rest.update(restaurants_params)
+        @restloc = @rest.locations.as_json(only: [:address_and_city, :latitude, :longitude])
         respond_with :api, @tag do |format|
-          format.json { render json: { action: "update", restaurant: {name: @rest.name, description: @rest.description, locations: @rest.locations} }, status: :created }
+          format.json { render json: { action: "update", restaurant: {name: @rest.name, description: @rest.description, locations: @restloc} }, status: :created }
+
         end
+        #respond_with :api, @rest, status: :ok
       else
         render json: { errors: @rest.errors.messages }, status: :bad_request
       end

@@ -25,8 +25,8 @@ class Api::V1::LocationsController < Api::V1::BaseController
       @loc = @loc.drop(@offset)
       @loc = @loc.take(@limit)
 
-      @response = { :offset => @offset, :limit => @limit, :amount => @loc.count, :locations => @loc }
-      respond_with :api, @response, status: :ok
+      #@response = { :offset => @offset, :limit => @limit, :amount => @loc.count, :locations => @loc }
+      respond_with :api, @loc, status: :ok
     else
       render json: { errors: "Couldn't find any restaurants." }, status: :not_found
     end
@@ -50,7 +50,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
     if @loc = Location.find_by_id(params[:id])
       if @loc.update(location_params)
         respond_with :api, @loc do |format|
-          format.json { render json: { action: "update", tag_name: @loc.address_and_city }, status: :created }
+          format.json { render json: { action: "update", updated: @loc }, status: :created }
         end
       else
         render json: { errors: @loc.errors.messages }, status: :bad_request

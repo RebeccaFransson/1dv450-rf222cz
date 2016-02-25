@@ -28,17 +28,16 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
-
     elsif params[:address_and_city].present?
-      loc = Location.near(params[:address_and_city].to_f, 50)
+      loc = Location.near(params[:address_and_city], 20)
       rest = []
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
-
     elsif params[:query].present?
       param = params[:query]
       rest = Restaurant.where("name like ?", "%#{param}%")
+      render json: {param: param, rest: rest}
     else
       rest = Restaurant.all.sort_by { |e| e[:name]}
 
@@ -50,9 +49,9 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       rest = rest.take(@limit)
 
       #@response = { :offset => @offset, :limit => @limit, :amount => @rest.count, :restaurants => @rest }
-      respond_with :api, rest, status: :ok
+      #respond_with :api, rest, status: :ok
     else
-      render json: { errors: "Couldn't find any restaurants." }, status: :not_found
+      #render json: { errors: "Couldn't find any restaurants." }, status: :not_found
     end
 
 

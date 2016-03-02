@@ -51,15 +51,15 @@ class Api::V1::LocationsController < Api::V1::BaseController
   def update
     if loc = Location.find_by_id(params[:id])
       if loc.update(location_params)
-        loc = loc.as_json(only: [:id, :address_and_city, :latitude, :longitude])
-        respond_with :api, l do |format|
-          format.json { render json: { action: "update", updated: l }, status: :created }
+        l = loc.as_json(only: [:id, :address_and_city, :latitude, :longitude])
+        respond_with :api, loc do |format|
+          format.json { render json: { action: "update", address_and_city: l }, status: :created }
         end
       else
         render json: { errors: loc.errors.messages }, status: :bad_request
       end
     else
-      render json: { errors: "Couldn't find tag. Sure you wrote the right Id?" }, status: :not_found
+      render json: { errors: "Couldn't find location. Sure you wrote the right Id?" }, status: :not_found
     end
   end
 

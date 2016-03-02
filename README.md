@@ -15,8 +15,8 @@ Görs genom att skicka en post till [https://obscure-castle-94632.herokuapp.com/
 
 ####Exempel på anrop
 Exempel på anrop kan du hitta på POSTMAN
-* [POSTMAN localhost]()
-* [POSTMAN heroku(live-version)]()
+* [POSTMAN localhost](https://www.getpostman.com/collections/92bc3f82bbab4deec2e4)
+* [POSTMAN heroku(live-version)](https://www.getpostman.com/collections/df50fda93725e132316b)
 
 För att hämta alla utav en resurs skriv resursnamnet
 
@@ -39,6 +39,7 @@ Limit och offset kan användas för alla resurser
 ``https://obscure-castle-94632.herokuapp.com/api/restaurants?limit=2&offset=1&key=fb3737b1c0d01edd92cf64262bc8efdf``
 
 Du kan också skapa, uppdatera och tabort resurser. Se postman filerna.
+En restaurang kan finns på flera platser, men en plats måste tillhöra en restaurang. Så skapar man en plats måste man skicka med ett rastaurnag-id.
 
 ####Format
 Formatet för responsen är JSON som standard. Om xml önskas skriv på ``.xml`` efter sökvägen.

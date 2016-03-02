@@ -46,7 +46,7 @@ Formatet för responsen är JSON som standard. Om xml önskas skriv på ``.xml``
 
 ``https://obscure-castle-94632.herokuapp.com/api/restaurants.xml?key=fb3737b1c0d01edd92cf64262bc8efdf``
 
-
+![databasmodell](https://github.com/RebeccaFransson/1dv450-rf222cz/blob/master/databasmodell.png)
 
 #Registera applikation
 

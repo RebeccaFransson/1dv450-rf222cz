@@ -17,7 +17,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
     #respond_with Location.all
     if params[:restaurant_id].present?
       rest = Restaurant.find_by_id(params[:restaurant_id])
-      loc = rest.locations
+      loc = rest.locations unless rest.nil?
     else
       loc = Location.all
     end
@@ -37,7 +37,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
 
   def create
     loc = Location.new(location_params)
-    if Location.where(address_and_city: loc.address_and_city).present?
+    if Location.where(address_city: loc.address_city).present?
       render json: { errors: "This location already exist in the database" }, status: :conflict
     else
       if loc.save
@@ -51,7 +51,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
   def update
     if loc = Location.find_by_id(params[:id])
       if loc.update(location_params)
-        l = loc.as_json(only: [:id, :address_and_city, :latitude, :longitude])
+        l = loc.as_json(only: [:id, :address_city, :latitude, :longitude])
         respond_with :api, loc do |format|
           format.json { render json: { action: "update", address_and_city: l }, status: :created }
         end
@@ -76,7 +76,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
   private
   def location_params
     json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-    json_params.require(:location).permit(:address_and_city)
+    json_params.require(:location).permit(:address_city, :restaurant_id)
   end
 
 end

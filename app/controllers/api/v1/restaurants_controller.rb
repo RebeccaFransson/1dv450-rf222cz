@@ -18,18 +18,18 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   def index
     if params[:tag_id].present?
       tag = Tag.find_by_id(params[:tag_id])
-      rest = tag.restaurants
+      rest = tag.restaurants unless tag.nil?
     elsif params[:creator_id].present?
       creator = Creator.find_by_id(params[:creator_id])
-      rest = creator.restaurants
+      rest = creator.restaurants unless creator.nil?
     elsif params[:lat] && params[:lon]
       loc = Location.near([params[:lat], params[:lon]], 50)
       rest = []
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
       end
-    elsif params[:address_and_city].present?
-      loc = Location.near(params[:address_and_city], 20)
+    elsif params[:address_city].present?
+      loc = Location.near(params[:address_city], 20)
       rest = []
       loc.each do |loc|
         rest.push(Restaurant.find_by_id(loc.restaurant_id))
@@ -38,8 +38,6 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       ##Cant get this to work on the live version, du you know what could be wrong?
       param = params[:query]
       rest = Restaurant.where("name LIKE ?", "%#{param}%")
-      #param =  params[:query].gsub('%', '\%').gsub('_', '\_')
-      #rest = Restaurant.where(["name like ?", param + "%"])
     else
       rest = Restaurant.all.sort_by { |e| e[:name]}
 
@@ -52,6 +50,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
       #@response = { :offset => @offset, :limit => @limit, :amount => @rest.count, :restaurants => @rest }
       respond_with :api, rest, status: :ok
+
     else
       render json: { errors: "Couldn't find any restaurants." }, status: :not_found
     end
@@ -75,34 +74,36 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
         end
       end
     end
-=begin not prioritized but tried to do it. Fucked up my address_and_city because the find_by expects two parameters...
-    if restaurant_params[:address_and_city].present
-      location_params = restaurants_params[:locations]
 
-      location_params.each do |loc|
-        if Location.find_by_name(loc["name"]).present?
-          rest.locations << Location.find_by_address_and_city(loc["address_and_city"])
-        else
-          rest.locations << Location.create(loc)
-        end
-      end
-    end
-=end
     if Restaurant.find_by_name(rest.name).present?
       render json: { errors: "This restaurant already exist in the database" }, status: :conflict
     else
       if rest.save
+        #Is there any locations to this restaurant
+        if restaurants_params[:locations].present?
+          restaurants_params[:locations].each do |loc|
+            l = Location.find_by_address_city(loc["address_city"])
+            if l.present?
+              rest.locations << l
+            else
+              new_loc = Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
+              rest.locations << new_loc
+            end
+          end
+        end
+
         respond_with :api, rest, status: :created
       else
         render json: { errors: rest.errors.messages }, status: :bad_request
       end
     end
+
   end
 
   def update
     if rest = Restaurant.find_by_id(params[:id])
       if rest.update(restaurants_params.except(:tags, :locations))
-        restloc = rest.locations.as_json(only: [:id, :address_and_city, :latitude, :longitude])
+        restloc = rest.locations.as_json(only: [:id, :address_city, :latitude, :longitude])
         respond_with :api, rest do |format|
           format.json { render json: { action: "update", restaurant: {id: rest.id, name: rest.name, description: rest.description, locations: restloc} }, status: :created }
         end
@@ -125,7 +126,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def restaurants_params
     json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-    json_params.require(:restaurant).permit(:name, :description, :stars, tags: [:name], locations: [:address_and_city])
+    json_params.require(:restaurant).permit(:name, :description, :stars, tags: [:name], locations: [:address_city])
   end
 
 end

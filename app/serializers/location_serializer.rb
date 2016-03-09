@@ -1,11 +1,10 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :id, :address_and_city, :latitude, :longitude, :restaurant_id, :links
+  attributes :id, :address_city, :latitude, :longitude, :restaurant_id, :links
 
   def links
     {
         self: api_location_path(object.id),
         restaurant: api_restaurant_path(object.restaurant_id)
-
     }
   end
 =begin

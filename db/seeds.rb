@@ -20,7 +20,7 @@ restaurant.save
 restaurant2.save
 restaurant3.save
 
-Location.create(address_and_city: "Amiralsgatan 12a, Malmö", restaurant_id: restaurant.id)
-Location.create(address_and_city: "Kiviksgatan, Malmö", restaurant_id: restaurant2.id)
-Location.create(address_and_city: "Skräddaretorpsvägen 16, kalmar", restaurant_id: restaurant2.id)
-Location.create(address_and_city: "Amiralsgatan 12a, Malmö", restaurant_id: restaurant3.id)
+Location.create(address_city: "Amiralsgatan 12a, Malmö", restaurant_id: restaurant.id)
+Location.create(address_city: "Kiviksgatan, Malmö", restaurant_id: restaurant2.id)
+Location.create(address_city: "Skräddaretorpsvägen 16, kalmar", restaurant_id: restaurant2.id)
+Location.create(address_city: "Amiralsgatan 12a, Malmö", restaurant_id: restaurant3.id)

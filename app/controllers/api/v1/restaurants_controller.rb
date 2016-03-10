@@ -83,12 +83,11 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
         if restaurants_params[:locations].present?
           restaurants_params[:locations].each do |loc|
             l = Location.find_by_address_city(loc["address_city"])
-            if l.present?
-              rest.locations << l
-            else
-              new_loc = Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
-              rest.locations << new_loc
-            end
+            #if l.present?#Is this nessecery? Can there really be two restaurant on one address? Dont think so
+              #rest.locations << l
+            #else
+              rest.locations << Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
+            #end
           end
         end
 

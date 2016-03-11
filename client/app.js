@@ -1,3 +1,4 @@
+'use strict';
 var app = angular.module('RestaurantMap', ['ui.router']);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){

@@ -1,4 +1,9 @@
 <div>
   här är restaurang lista
-  {{message}}
+
+  <ul>
+    <li ng-repeat="rest in restaurants">
+      {{ rest.name }}
+    </li>
+  </ul>
 </div>

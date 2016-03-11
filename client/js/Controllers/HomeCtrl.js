@@ -1,12 +1,12 @@
 
-app.controller('RestaurantMapHomeCtrl', ['$scope', 'RestaurantData', function RestaurantMapCtrl($scope, RestaurantData) {
+app.controller('RestaurantMapHomeCtrl', ['$scope', 'RestaurantService', function RestaurantMapCtrl($scope, RestaurantService) {
   'use strict';
   $scope.restaurants;
   $scope.status;
   getRestaurants();
 
   function getRestaurants(){
-    RestaurantData.getRestaurants()
+    RestaurantService.getRestaurants()
             .success(function (data) {
               console.log(data.restaurants);
                 $scope.restaurants = data.restaurants;

@@ -1,6 +1,6 @@
+Search restaurant by tags
+<select ng-model="select" ng-options="t.name for t in tag" ng-change="searchTag()"></select>
 <div>
-  här är restaurang lista
-
   <ul>
     <li ng-repeat="rest in restaurants">
       {{ rest.name }}

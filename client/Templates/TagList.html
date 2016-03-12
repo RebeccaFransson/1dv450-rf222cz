@@ -1,5 +1,5 @@
 <div>
   Search restaurant by tags
-  <select ng-model="preSelected" ng-options="t.name for t in tag"></select>
+  <select ng-model="select" ng-options="t.name for t in tag" ng-change="searchTag()"></select>
 
 </div>

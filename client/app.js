@@ -15,30 +15,5 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 var restaurantRoute = {
   url: '/restaurants',
   templateUrl: 'Templates/RestaurantList.html',
-  controller: 'RestaurantMapHomeCtrl'
-}
-
-
-
-/*
-        function($routeProvider){
-
-          $routeProvider
-            .when('/restaurants', {
-              templateUrl: 'RestaurantList.html',
-              controller: 'RestaurantMapHomeCtrl'
-            })
-            .when('/test', testRoute)
-            .otherwise({redirectTo: '/restaurants'});
-
-
-          var homeRoute = {
-            templateUrl: "Templates/RestaurantList.html",
-            controller: "RestaurantMapHomeCtrl"
-          }
-          var testRoute = {
-            templateUrl: 'Templates/test.html'
-          }
-
-        });
-*/
+  controller: 'RestaurantCtrl'
+};

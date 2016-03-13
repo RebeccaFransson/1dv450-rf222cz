@@ -9,5 +9,9 @@ app.factory('RestaurantService', ['Resources', function(Resources){//Deklarerar 
     return Resources.getResources('tags/'+id+'/restaurants');
   };
 
+  this.getRestaurant = function(id) {
+    return Resources.getResources('restaurants/'+id+'/');
+  };
+
   return this;
 }]);

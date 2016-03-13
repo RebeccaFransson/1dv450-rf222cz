@@ -7,13 +7,20 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
   $urlRouterProvider.otherwise('/restaurants');
 
   $stateProvider
-    .state('restaurants', restaurantRoute)
+    .state('restaurants', restaurantsRoute)
+    .state('oneRestaurant', DetailRestaurantRoute)
 }]);
 
 
 
-var restaurantRoute = {
+var restaurantsRoute = {
   url: '/restaurants',
   templateUrl: 'Templates/RestaurantList.html',
   controller: 'RestaurantCtrl'
 };
+
+var DetailRestaurantRoute = {
+  url: '/restaurant/:id',
+  templateUrl: 'Templates/OneRestaurant.html',
+  controller: 'DetailRestaurantCtrl'
+}

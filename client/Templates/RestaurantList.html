@@ -1,10 +1,9 @@
 Search restaurant by tags
-<select ng-model="select" ng-options="t.name for t in tag" ng-change="searchTag()"></select>
+<select ng-model="select" ng-options="t.name for t in tag" ng-change="searchTag()"></select><a ui-sref="restaurants">Alla Restauranger</a>
 <div>
   <ul>
     <li ng-repeat="rest in restaurants">
-      {{ rest.name }}
-      <a href="#"></a>
+      <a ui-sref="oneRestaurant({id: rest.id})">{{ rest.name }}</a>
     </li>
   </ul>
 </div>

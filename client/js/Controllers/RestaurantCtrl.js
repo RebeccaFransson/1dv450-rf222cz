@@ -3,11 +3,11 @@ app.controller('RestaurantCtrl', ['$scope', 'RestaurantService', 'TagService', f
   'use strict';
   $scope.restaurants;
   $scope.status;
-  getRestaurants();
 
   TagService.getTags()
     .success(function(data){
       $scope.tag = data.tags;
+      $scope.tag.unshift({name: 'All tags'})
     })
     .error(function (error) {
         //$scope.status = 'Unable to load tags: ' + error.message;
@@ -17,17 +17,17 @@ app.controller('RestaurantCtrl', ['$scope', 'RestaurantService', 'TagService', f
       getRestaurantbyTag(this.select.id);
     }
 
+  RestaurantService.getRestaurants()
+          .success(function (data) {
+              $scope.restaurants = data.restaurants;
+          })
+          .error(function (error) {
+              //$scope.status = 'Unable to load restaurant data: ' + error.message;
+              console.log('Unable to load restaurant data: ' + error);
+          });
 
-  function getRestaurants(){
-    RestaurantService.getRestaurants()
-            .success(function (data) {
-                $scope.restaurants = data.restaurants;
-            })
-            .error(function (error) {
-                //$scope.status = 'Unable to load restaurant data: ' + error.message;
-                console.log('Unable to load restaurant data: ' + error);
-            });
-  }
+
+
  function getRestaurantbyTag(id){
     RestaurantService.getRestaurantbyTag(id)
             .success(function (data) {

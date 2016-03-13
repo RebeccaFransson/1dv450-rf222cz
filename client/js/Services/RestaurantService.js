@@ -6,7 +6,12 @@ app.factory('RestaurantService', ['Resources', function(Resources){//Deklarerar 
   };
 
   this.getRestaurantbyTag = function(id) {
-    return Resources.getResources('tags/'+id+'/restaurants');
+    console.log(id == undefined);
+    if(id == undefined){
+      return this.getRestaurants();
+    }else{
+      return Resources.getResources('tags/'+id+'/restaurants/');
+    }
   };
 
   this.getRestaurant = function(id) {

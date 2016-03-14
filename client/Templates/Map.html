@@ -14,7 +14,7 @@
 
       <marker ng-repeat="loc in rest.locations"
         position="{{loc.latitude}}, {{loc.longitude}}"
-        on-click="map.showInfoWindow(event, '{{rest.id}}')"
+        on-click="map.showInfoWindow(event, {{rest.id}})"
         id="{{rest.id}}">
       </marker>
 

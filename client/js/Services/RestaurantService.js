@@ -17,5 +17,9 @@ app.factory('RestaurantService', ['Resources', function(Resources){//Deklarerar 
     return Resources.getResources('restaurants/'+id+'/');
   };
 
+  this.getRestaurantbyQuery = function(searchText) {
+    return Resources.getResources('restaurants/', {query: searchText});
+  }
+
   return this;
 }]);

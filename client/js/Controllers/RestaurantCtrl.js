@@ -28,6 +28,10 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
   $scope.searchTag = function(){
     getRestaurantbyTag(this.select.id);
   }
+  $scope.searchRestaurants = function(){
+    getRestaurantByQuery(this.searchText);
+    this.searchText = '';
+  }
 
 
 
@@ -67,5 +71,17 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
                console.log('Unable to load restaurant by tag data: ' + error.message);
            });
   }
+
+  //Hämtar alla restauranger med sökord
+   function getRestaurantByQuery(searchText){
+     RestaurantService.getRestaurantbyQuery(searchText)
+             .success(function (data) {
+                 $scope.restaurants = data.restaurants;
+             })
+             .error(function (error) {
+                 //$scope.status = 'Unable to load restaurant by tag data: ' + error.message;
+                 console.log('Unable to load restaurant by tag data: ' + error.message);
+             });
+    }
 
 }]);

@@ -1,3 +1,4 @@
+/*
 app.controller('TagCtrl', ['$scope', 'TagService', function($scope, TagService){
   'use strict';
   $scope.tag;
@@ -17,3 +18,4 @@ app.controller('TagCtrl', ['$scope', 'TagService', function($scope, TagService){
   //$scope.searchTag = RestaurantService.getRestaurantbyTag(this.select.id);
 
 }]);
+*/

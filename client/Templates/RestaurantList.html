@@ -5,6 +5,8 @@
     <select class="form-control" ng-model="select" ng-options="t.name for t in tag" ng-change="searchTag()"></select>
   </div>
   <div class="form-group col-md-4">
+  </div>
+  <div class="form-group col-md-4">
     <label>Search</label>
     <input type="text" class="form-control">
   </div>
@@ -23,5 +25,5 @@
 </div>
 
 <div class="col-md-6">
-  <div ng-include="'Templates/Map.html'" ng-controller="MapCtrl"></div>
+  <div ng-include="'Templates/Map.html'" ></div>
 </div>

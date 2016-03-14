@@ -6,7 +6,6 @@ app.factory('RestaurantService', ['Resources', function(Resources){//Deklarerar 
   };
 
   this.getRestaurantbyTag = function(id) {
-    console.log(id == undefined);
     if(id == undefined){
       return this.getRestaurants();
     }else{

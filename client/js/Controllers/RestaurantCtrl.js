@@ -1,13 +1,17 @@
 
-app.controller('RestaurantCtrl', ['$scope', 'RestaurantService', 'TagService', function($scope, RestaurantService, TagService) {
+app.controller('RestaurantCtrl', ['$scope', 'RestaurantService', 'TagService',
+function($scope, RestaurantService, TagService) {
   'use strict';
+
   $scope.restaurants;
   $scope.status;
+  $scope.tag;
+
 
   TagService.getTags()
     .success(function(data){
       $scope.tag = data.tags;
-      $scope.tag.unshift({name: 'All tags'})
+      $scope.tag.unshift({name: 'All tags'});
     })
     .error(function (error) {
         //$scope.status = 'Unable to load tags: ' + error.message;
@@ -25,6 +29,8 @@ app.controller('RestaurantCtrl', ['$scope', 'RestaurantService', 'TagService', f
               //$scope.status = 'Unable to load restaurant data: ' + error.message;
               console.log('Unable to load restaurant data: ' + error);
           });
+
+
 
 
 

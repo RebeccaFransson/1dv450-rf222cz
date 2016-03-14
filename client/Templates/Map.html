@@ -1,1 +1,15 @@
-<p>här är en map</p>
+
+<ng-map default-style="true" center="55.5996055, 13.0083493" zoom="4">
+  <marker id="foo" position="55.5996055, 13.0083493"
+    on-click="map.showInfoWindow(event, 'bar')">
+  </marker>
+  <info-window id="bar" max-width="400">
+    <div ng-non-bindable>
+      <div id="siteNotice"></div>
+      <h4 id="firstHeading" class="firstHeading">titel</h4>
+      <div id="bodyContent">
+        hejsan
+      </div>
+    </div>
+  </info-window>
+</ng-map>

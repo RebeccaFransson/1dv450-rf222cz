@@ -20,6 +20,8 @@
           {{ rest.name }} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
         {{ rest.description }}
+        {{ rest.locations[0].address_city }}
+        {{ rest.locations[1].address_city }}
       </uib-accordion-group>
     </uib-accordion>
 </div>

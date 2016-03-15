@@ -15,6 +15,10 @@
           </div>
         </div>
 
+        <div ng-controller="AlertCtrl">
+          <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        </div>
+
         <div ui-view></div>
 
         <div class="col-md-12">
@@ -37,7 +41,9 @@
     <script src="js/Services/Resources.js"></script>
     <script src="js/Services/RestaurantService.js"></script>
     <script src="js/Services/TagService.js"></script>
+    <script src="js/Services/LoginService.js"></script>
     <script src="js/Controllers/RestaurantCtrl.js"></script>
+    <script src="js/Controllers/AlertCtrl.js"></script>
     <script src="js/Controllers/MapCtrl.js"></script>
     <script src="js/Controllers/TagCtrl.js"></script>
     <script src="js/Controllers/LoginCtrl.js"></script>

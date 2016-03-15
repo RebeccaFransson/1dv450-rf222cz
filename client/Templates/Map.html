@@ -7,7 +7,7 @@
         on-click="vm.showInfoWindow(event, {{rest}}, {{loc.latitude}}, {{loc.longitude}})">
       </marker>
   </div>
-  <info-window id="restInfo" max-width="400" position="{{vm.lat}}, {{vm.lon}}">
+  <info-window id="restInfo" max-width="200" position="{{vm.position.lat}} {{vm.position.lon}}">
     <div >
       <h4 id="firstHeading" class="firstHeading">{{vm.rest.name}}</h4>
       <div id="bodyContent">

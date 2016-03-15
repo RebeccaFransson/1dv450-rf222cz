@@ -7,7 +7,9 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
   $scope.status;
   $scope.tag;
 
-//Kolla om det finns något sparat i sessionen, eller om utgångsdaumet för sessionen har gått ut.
+
+
+//Kolla om det finns något sparat i sessionen, eller om utgångsdaumet för sessionen har gått ut(20min).
 //Hämta nya taggar om sessionen inte stämmer
 //Annars använder vi oss utav de som finns sparade i sessionen
 //taggar
@@ -24,6 +26,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
   }else{
     $scope.restaurants = $sessionStorage.restaurants.data;
   }
+
 
 
 //Vid förändring i select-tags
@@ -43,7 +46,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
       .success(function(data){
         $scope.tag = data.tags;
         $scope.tag.unshift({name: 'All tags'});
-        $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(1*60000)};
+        $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(20*60000)};
       })
       .error(function (error) {
           //$scope.status = 'Unable to load tags: ' + error.message;
@@ -55,7 +58,8 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
     RestaurantService.getRestaurants()
             .success(function (data) {
                 $scope.restaurants = data.restaurants;
-                $sessionStorage.restaurants = {data: $scope.restaurants, expire: new Date().getTime()+(1*60000)};
+                $sessionStorage.restaurants = {data: $scope.restaurants, expire: new Date().getTime()+(20*60000)};
+
             })
             .error(function (error) {
                 //$scope.status = 'Unable to load restaurant data: ' + error.message;

@@ -8,7 +8,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 
   $stateProvider
     .state('restaurants', restaurantsRoute)
-    .state('oneRestaurant', DetailRestaurantRoute)
+    .state('login', loginRoute)
+
 }]);
 
 
@@ -19,8 +20,8 @@ var restaurantsRoute = {
   controller: 'RestaurantCtrl'
 };
 
-var DetailRestaurantRoute = {
-  url: '/restaurant/:id',
-  templateUrl: 'Templates/OneRestaurant.html',
-  controller: 'DetailRestaurantCtrl'
+var loginRoute = {
+  url: '/login',
+  templateUrl: 'Templates/Login.html',
+  controller: 'LoginCtrl'
 }

@@ -10,18 +10,20 @@
       <div class="jumbotron">
         <h1>Restaurant map</h1>
         <div class="col-md-12">
-          <a ui-sref="restaurants">All Restaurants</a>
+          <a ui-sref="restaurants" class="col-md-4">All Restaurants</a>
+          <a ui-sref="login">Login</a>
+          </div>
         </div>
-      </div>
 
-      <div ui-view></div>
+        <div ui-view></div>
 
-      <div class="col-md-12">
-        footer
-      </div>
+        <div class="col-md-12">
+          footer
+        </div>
     </div>
 
 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
@@ -30,6 +32,7 @@
     <script type="text/javascript" src="Scripts/ui-bootstrap-tpls-1.2.4.js"></script>
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyBv9Br8Icb4LEeBi4gCxavpAU1-LXsDErE"></script>
     <script src="Scripts/ng-map.min.js"></script>
+    <script src="style.css"></script>
     <script src="app.js"></script>
     <script src="js/Services/Resources.js"></script>
     <script src="js/Services/RestaurantService.js"></script>
@@ -37,6 +40,6 @@
     <script src="js/Controllers/RestaurantCtrl.js"></script>
     <script src="js/Controllers/MapCtrl.js"></script>
     <script src="js/Controllers/TagCtrl.js"></script>
-    <script src="js/Controllers/DetailRestaurantCtrl.js"></script>
+    <script src="js/Controllers/LoginCtrl.js"></script>
   </body>
 </html>

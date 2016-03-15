@@ -38,6 +38,9 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       ##Cant get this to work on the live version, du you know what could be wrong?
       param = params[:query]
       rest = Restaurant.where("name LIKE ?", "%#{param}%")
+      
+      #rest = Location.where("address_city LIKE ?", "%#{param}%") if rest.present?
+      #if rest.present? then rest = Location.where("name LIKE ?", "%#{param}%")
     else
       rest = Restaurant.all.sort_by { |e| e[:name]}
 

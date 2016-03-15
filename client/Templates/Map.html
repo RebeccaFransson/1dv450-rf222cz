@@ -1,22 +1,20 @@
+<div ng-controller="MapCtrl as vm">
 
-<ng-map default-style="true" center="55.5996055, 13.0083493" zoom="4">
-
+<ng-map id="map" default-style="true" center="56.9996055, 13.0083493" zoom="6">
   <div ng-repeat="rest in restaurants">
-
-    <info-window id="{{rest.id}}" max-width="400">
-      <div ng-non-bindable>
-        <h4 id="firstHeading" class="firstHeading">{{rest.name}}</h4>
-        <div id="bodyContent">
-          {{rest.description}}
-        </div>
-      </div>
-    </info-window>
-
       <marker ng-repeat="loc in rest.locations"
         position="{{loc.latitude}}, {{loc.longitude}}"
-        on-click="map.showInfoWindow(event, {{rest.id}})"
-        id="{{rest.id}}">
+        on-click="vm.showInfoWindow(event, {{rest}}, {{loc.latitude}}, {{loc.longitude}})">
       </marker>
-
   </div>
+  <info-window id="restInfo" max-width="400" position="{{vm.lat}}, {{vm.lon}}">
+    <div >
+      <h4 id="firstHeading" class="firstHeading">{{vm.rest.name}}</h4>
+      <div id="bodyContent">
+        {{vm.rest.description}}
+      </div>
+    </div>
+  </info-window>
 </ng-map>
+
+</div>

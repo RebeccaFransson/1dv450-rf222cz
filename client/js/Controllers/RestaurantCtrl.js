@@ -11,13 +11,15 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
 //Hämta nya taggar om sessionen inte stämmer
 //Annars använder vi oss utav de som finns sparade i sessionen
 //taggar
-  if($sessionStorage.tag == undefined || $sessionStorage.tag.expire > new Date().getTime()){
+  if($sessionStorage.tag == undefined || $sessionStorage.tag.expire < new Date().getTime()){
+    console.log('byter ut taggar från session');
     getTags();
   }else{
     $scope.tag = $sessionStorage.tag.data;
   }
 //restauranger
-  if($sessionStorage.restaurants == undefined || $sessionStorage.restaurants.expire > new Date().getTime()){
+  if($sessionStorage.restaurants == undefined || $sessionStorage.restaurants.expire < new Date().getTime()){
+    console.log('byter ut rest från session');
     getRestaurants();
   }else{
     $scope.restaurants = $sessionStorage.restaurants.data;
@@ -57,7 +59,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
             })
             .error(function (error) {
                 //$scope.status = 'Unable to load restaurant data: ' + error.message;
-                console.log('Unable to load restaurant data: ' + error);
+                console.log('Unable to load restaurant data: ' + error.errors);
             });
   }
 //Hämtar alla restauranger med viss tag
@@ -68,7 +70,8 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
            })
            .error(function (error) {
                //$scope.status = 'Unable to load restaurant by tag data: ' + error.message;
-               console.log('Unable to load restaurant by tag data: ' + error.message);
+               console.log('Unable to load restaurant by tag data: ' + error.errors);
+
            });
   }
 
@@ -79,8 +82,9 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
                  $scope.restaurants = data.restaurants;
              })
              .error(function (error) {
-                 //$scope.status = 'Unable to load restaurant by tag data: ' + error.message;
-                 console.log('Unable to load restaurant by tag data: ' + error.message);
+                 $scope.status = 'Unable to load restaurant by tag data: ' + error.errors;
+                 //TODO: Om inget hittas, flash meddelande
+                 console.log('Unable to load restaurant by tag data: ' + error.errors);
              });
     }
 

@@ -1,5 +1,7 @@
 app.controller('MapCtrl', ['$scope', '$sessionStorage', function($scope, $sessionStorage){
-  //$scope.restaurants = $sessionStorage.restaurants;
+
+  //console.log($sessionStorage.restaurants);
+
   var vm = this;
 
   $scope.$on('mapInitialized', function(evt, map){
@@ -10,6 +12,6 @@ app.controller('MapCtrl', ['$scope', '$sessionStorage', function($scope, $sessio
     vm.rest = rest;
     vm.position = {lat: lat, lon: lon};
     vm.map.showInfoWindow('restInfo', rest, lat, lon);
-    console.log(vm.rest);
   };
+
 }]);

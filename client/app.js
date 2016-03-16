@@ -11,6 +11,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
     .state('restaurants', restaurantsRoute)
     .state('login', loginRoute)
     .state('logout', logoutRoute)
+    .state('addRestaurant', addRestaurantRoute)
 }]);
 
 
@@ -18,14 +19,46 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 var restaurantsRoute = {
   url: '/restaurants',
   templateUrl: 'Templates/RestaurantList.html',
-  controller: 'RestaurantCtrl'
+  controller: 'RestaurantCtrl',
+  resolve: {
+    restaurants: function(RestaurantService){
+      return RestaurantService.getRestaurants();
+    },
+    tags: function(TagService){
+      return TagService.getTags();
+    }
+  },
+  authenticate: false
 };
-
 var loginRoute = {
   url: '/login',
   templateUrl: 'Templates/Login.html',
-  controller: 'LoginCtrl'
-}
+  controller: 'LoginCtrl',
+  authenticate: false
+};
 var logoutRoute = {
   url: '/logout',
+  controller: 'LogoutCtrl',
+  authenticate: false
+};
+var addRestaurantRoute = {
+  url: '/addRestaurant',
+  templateUrl: 'Templates/AddRestaurant.html',
+  controller: 'AddRestaurantCtrl',
+  authenticate: true
 }
+
+
+//authentication for routes
+/*
+app.run(function ($rootScope, $state, LoginService) {
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+    console.log(toState);
+    console.log(toParams);
+    if (toState.authenticate && !LoginService.isLoggedIn()) {
+      $state.transitionTo("restaurants");
+      event.preventDefault();
+    }
+  });
+});
+*/

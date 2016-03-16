@@ -1,0 +1,25 @@
+<form name="restaurantForm" class="col-md-12" ng-submit="submit()" required>
+  <h2>Add a restaurant</h2>
+   <div class="form-group">
+     <label>Name:</label>
+     <input type="text" class="form-control" ng-model="restaurant.name">
+   </div>
+   <div class="form-group">
+     <label>Description:</label>
+     <input class="form-control" ng-model="restaurant.description">
+   </div>
+   <div class="form-group">
+     <label>Location:</label>
+     <input class="form-control" ng-model="restaurant.location" placeholder="Adress, city">
+   </div>
+   <div class="form-group">
+     <label>Tags:</label>
+     <select class="form-control" ng-model="restaurant.tag" ng-options="t.name for t in tag"></select>
+   </div>
+   <div class="form-group">
+     <label>Stars:</label>
+     <uib-rating ng-model="restaurant.stars" max="5" read-only="isReadonly" on-hover="hoveringOver(value)"
+      on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+   </div>
+  <button type="submit" class="btn btn-info" ng-disabled="!isEmpty()">Skapa</button>
+</form>

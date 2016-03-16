@@ -21,5 +21,10 @@ app.factory('RestaurantService', ['Resources', function(Resources){//Deklarerar 
     return Resources.getResources('restaurants/', {query: searchText});
   }
 
+  /*ADD RESTAURANT*/
+  this.addRestaurant = function(restaurantObj, token){
+    return Resources.postResource('restaurants/', {restaurant: restaurantObj}, undefined, {Authorization: token});
+  }
+
   return this;
 }]);

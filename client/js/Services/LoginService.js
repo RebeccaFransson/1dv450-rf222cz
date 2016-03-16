@@ -1,4 +1,4 @@
-app.factory('LoginService', ['Resources', function(Resources){
+app.factory('LoginService', ['Resources', '$sessionStorage', function(Resources, $sessionStorage){
   'use strict';
 
   this.getJWT= function(usercred) {
@@ -9,6 +9,12 @@ app.factory('LoginService', ['Resources', function(Resources){
   this.getCreatorByEmail = function(userEmail){
     return Resources.getResources('/creator_by_email', {email: userEmail});
   }
+
+  this.isLoggedIn = function(){
+    return $sessionStorage.currentUser;
+  }
+
+  //TODO: switchloggedinloggedout
 
   return this;
 }]);

@@ -19,12 +19,12 @@ function($scope, $sessionStorage, $location, LoginService, AlertService){
     LoginService.getCreatorByEmail(email)
           .success(function(userdata){
             $sessionStorage.currentUser = {userdata, token};
-            $sessionStorage.alerts.unshift({type: 'info', msg: 'Welcome to Restaurant Map, you are now logged in!'});
+            $sessionStorage.alerts.unshift({type: 'success', msg: 'Welcome to Restaurant Map, you are now logged in!'});
+            //TODO: alertservice istället
             $location.path( '/restaurants');
-            console.log($sessionStorage.currentUser);
           })
           .error(function (error) {
-              AlertService.handlesErrors(error = {errors: 'Coundt get user with this email '+email});
+              AlertService.handlesErrors(error = {errors: "Couldn't get user with this email "+email});
           });
 
   }

@@ -1,12 +1,19 @@
 
-app.controller('RestaurantCtrl', ['$scope', '$sessionStorage', 'RestaurantService', 'TagService', 'AlertService',
-function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
+app.controller('RestaurantCtrl', ['$scope', '$sessionStorage', 'restaurants', 'tags', 'RestaurantService', 'TagService', 'AlertService',
+function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagService, AlertService) {
   'use strict';
+  //delete $sessionStorage.restaurants;
+  $scope.restaurants = restaurants.data.restaurants;
+  $sessionStorage.restaurants = $scope.restaurants;
+  $scope.tag = tags.data.tags;
+  //console.log($sessionStorage.currentUser);
 
-  $scope.restaurants;
-  $scope.status;
-  $scope.tag;
-  console.log($sessionStorage.currentUser);
+console.log($sessionStorage.restaurants);
+  if($sessionStorage.restaurants == undefined || $sessionStorage.tag.expire < new Date().getTime()){
+    getRestaurants();
+  }
+
+  $scope.restaurants = $sessionStorage.restaurants;
 
 
 
@@ -14,6 +21,7 @@ function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
 //Hämta nya taggar om sessionen inte stämmer
 //Annars använder vi oss utav de som finns sparade i sessionen
 //taggar
+/*
   if($sessionStorage.tag == undefined || $sessionStorage.tag.expire < new Date().getTime()){
     console.log('byter ut taggar från session');
     getTags();
@@ -27,8 +35,7 @@ function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
   }else{
     $scope.restaurants = $sessionStorage.restaurants.data;
   }
-
-
+*/
 
 //Vid förändring i select-tags
   $scope.searchTag = function(){
@@ -46,8 +53,7 @@ function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
     TagService.getTags()
       .success(function(data){
         $scope.tag = data.tags;
-        $scope.tag.unshift({name: 'All tags'});
-        $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(20*60000)};
+        $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(1*60000)};
       })
       .error(function (error) {
           AlertService.handlesErrors(error, 'tags');
@@ -57,14 +63,13 @@ function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
   function getRestaurants(){
     RestaurantService.getRestaurants()
             .success(function (data) {
-                $scope.restaurants = data.restaurants;
-                $sessionStorage.restaurants = {data: $scope.restaurants, expire: new Date().getTime()+(20*60000)};
-
+                $sessionStorage.restaurants = {data: data.restaurants, expire: new Date().getTime()+(1*60000)};
             })
             .error(function (error) {
                 AlertService.handlesErrors(error, 'restaurants');
             });
   }
+
 //Hämtar alla restauranger med viss tag
  function getRestaurantbyTag(id){
    RestaurantService.getRestaurantbyTag(id)

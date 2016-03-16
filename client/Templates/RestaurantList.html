@@ -4,12 +4,14 @@
     <label>Restaurant by tag</label>
     <select class="form-control" ng-model="select" ng-options="t.name for t in tag" ng-change="searchTag()"></select>
   </div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-3">
   </div>
   <div class="form-group col-md-4">
     <label>Search</label>
     <input type="text" class="form-control" ng-model="searchText">
-    <button type="button" class="btn btn-info float-left" ng-click="searchRestaurants()">Sök</button>
+  </div>
+  <div class="form-group col-md-1">
+    <button type="button" class="btn btn-info" ng-click="searchRestaurants()">Sök</button>
   </div>
 </div>
 

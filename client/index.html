@@ -10,15 +10,17 @@
       <div class="jumbotron">
         <h1>Restaurant map</h1>
         <div class="col-md-12" ng-controller="NavigationCtrl">
-          <a ui-sref="restaurants" class="col-md-4">All Restaurants</a>
-          <div ng-if="isLoggedIn()">
-              <a ui-sref="logout">Logout</a>
-          </div>
-          <div ng-if="!isLoggedIn()">
-              <a ui-sref="login">Login</a>
-          </div>
+          <a ui-sref="restaurants" class="col-md-4">All restaurants</a>
 
-          </div>
+            <div ng-if="isLoggedIn()">
+              <a ui-sref="addRestaurant" class="col-md-4">Add restaurants</a>
+              <a ui-sref="logout" class="col-md-4">Logout</a>
+            </div>
+            <div ng-if="!isLoggedIn()">
+              <a ui-sref="login" class="col-md-4">Login</a>
+            </div>
+
+        </div>
         </div>
 
         <div ng-controller="AlertCtrl">
@@ -51,9 +53,11 @@
     <script src="js/Services/AlertService.js"></script>
     <script src="js/Controllers/NavigationCtrl.js"></script>
     <script src="js/Controllers/AlertCtrl.js"></script>
-    <script src="js/Controllers/RestaurantCtrl.js"></script>
     <script src="js/Controllers/MapCtrl.js"></script>
+    <script src="js/Controllers/RestaurantCtrl.js"></script>
     <script src="js/Controllers/TagCtrl.js"></script>
     <script src="js/Controllers/LoginCtrl.js"></script>
+    <script src="js/Controllers/LogoutCtrl.js"></script>
+    <script src="js/Controllers/AddRestaurantCtrl.js"></script>
   </body>
 </html>

@@ -6,6 +6,7 @@ function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
   $scope.restaurants;
   $scope.status;
   $scope.tag;
+  console.log($sessionStorage.currentUser);
 
 
 

@@ -10,7 +10,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
   $stateProvider
     .state('restaurants', restaurantsRoute)
     .state('login', loginRoute)
-
+    .state('logout', logoutRoute)
 }]);
 
 
@@ -25,4 +25,7 @@ var loginRoute = {
   url: '/login',
   templateUrl: 'Templates/Login.html',
   controller: 'LoginCtrl'
+}
+var logoutRoute = {
+  url: '/logout',
 }

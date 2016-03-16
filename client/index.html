@@ -9,9 +9,15 @@
     <div class="container">
       <div class="jumbotron">
         <h1>Restaurant map</h1>
-        <div class="col-md-12">
+        <div class="col-md-12" ng-controller="NavigationCtrl">
           <a ui-sref="restaurants" class="col-md-4">All Restaurants</a>
-          <a ui-sref="login">Login</a>
+          <div ng-if="isLoggedIn()">
+              <a ui-sref="logout">Logout</a>
+          </div>
+          <div ng-if="!isLoggedIn()">
+              <a ui-sref="login">Login</a>
+          </div>
+
           </div>
         </div>
 
@@ -43,6 +49,7 @@
     <script src="js/Services/TagService.js"></script>
     <script src="js/Services/LoginService.js"></script>
     <script src="js/Services/AlertService.js"></script>
+    <script src="js/Controllers/NavigationCtrl.js"></script>
     <script src="js/Controllers/AlertCtrl.js"></script>
     <script src="js/Controllers/RestaurantCtrl.js"></script>
     <script src="js/Controllers/MapCtrl.js"></script>

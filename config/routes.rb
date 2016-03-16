@@ -12,9 +12,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
 
-  namespace :api, defaults: { format: :json } do#, constraints: { subdomain: 'api' }, path: '' do
+  namespace :api, defaults: { format: :json } do
     scope module: :v1, constrains: ApiConstraints.new(version: 1, default: true) do
-      # We are going to list our resources here
+
       resources :restaurants, only: [:show, :index, :create, :new, :destroy, :update] do
         resources :locations, only: [:index]
         resources :tags, only: [:index]
@@ -23,9 +23,12 @@ Rails.application.routes.draw do
       resources :tags, only: [:show, :index, :create, :new, :destroy, :update] do
         resources :restaurants, only: [:index]
       end
-      resources :creators, only: [:show, :index, :create, :new, :destroy, :update] do
+      resources :creators, only: [:show, :index] do
         resources :restaurants, only: [:index]
       end
+
+      get    'creator_by_email'                  => 'creators#creator_by_email'
+
     end
   end
 end

@@ -1,6 +1,7 @@
 class Api::V1::CreatorsController <  Api::V1::BaseController
 
   before_action :offset_params, only: [:index]
+  before_action :key_access
 
   def show
     cre = Creator.find_by_id(params[:id])
@@ -19,4 +20,9 @@ class Api::V1::CreatorsController <  Api::V1::BaseController
     #@response = { offset: @offset, limit: @limit, amount: @creators.count, creators: @creators}
     respond_with :api, creators, status: :ok
   end
+
+  def creator_by_email
+    respond_with :api, Creator.find_by_email(params[:email])
+  end
+
 end

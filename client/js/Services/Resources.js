@@ -10,11 +10,12 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
     })
   }
 
-  this.getJWT = function(resourceParams){
+  this.postResource = function(resource, resourceParams, baseUrl){
     var params = Object.assign({ key: api_key });
-    return $http.post('http://localhost:3000/knock/auth_token', resourceParams,{
-      params: params,
-      cache: true
+    var url = baseUrl == undefined ? base_url : baseUrl;
+    console.log(resourceParams);
+    return $http.post(url + resource, resourceParams,{
+      params: params
     })
   }
 

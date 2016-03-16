@@ -1,6 +1,6 @@
 
-app.controller('RestaurantCtrl', ['$scope', '$sessionStorage', 'RestaurantService', 'TagService',
-function($scope, $sessionStorage, RestaurantService, TagService) {
+app.controller('RestaurantCtrl', ['$scope', '$sessionStorage', 'RestaurantService', 'TagService', 'AlertService',
+function($scope, $sessionStorage, RestaurantService, TagService, AlertService) {
   'use strict';
 
   $scope.restaurants;
@@ -49,7 +49,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
         $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(20*60000)};
       })
       .error(function (error) {
-          handlesErrors(error, 'tags');
+          AlertService.handlesErrors(error, 'tags');
       });
   }
 //Hämtar alla restauranger
@@ -61,7 +61,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
 
             })
             .error(function (error) {
-                handlesErrors(error, 'restaurants');
+                AlertService.handlesErrors(error, 'restaurants');
             });
   }
 //Hämtar alla restauranger med viss tag
@@ -71,7 +71,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
                $scope.restaurants = data.restaurants;
            })
            .error(function (error) {
-               handlesErrors(error, 'restaurants');
+               AlertService.handlesErrors(error, 'restaurants');
            });
   }
 
@@ -84,15 +84,6 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
              .error(function (error) {
                  $sessionStorage.alerts.unshift({type: 'warning', msg: 'Unable to find restaurants with "'+searchText+'" in they names.  Error: ' + error.errors});
              });
-    }
-
-    function handlesErrors(error, resource){
-      if(error == undefined){
-        $sessionStorage.alerts.unshift({type: 'warning', msg: 'Sorry, we are unabled to reach the server right now. Cant load '+resource});
-        //TODO: Try again-knapp?
-      }else{
-        $sessionStorage.alerts.unshift({type: 'warning', msg: 'Error: ' + error.errors});
-      }
     }
 
 }]);

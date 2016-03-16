@@ -49,8 +49,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
         $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(20*60000)};
       })
       .error(function (error) {
-          //$scope.status = 'Unable to load tags: ' + error.message;
-          console.log('Unable to load tags: ' + error);
+          handlesErrors(error, 'tags');
       });
   }
 //Hämtar alla restauranger
@@ -62,8 +61,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
 
             })
             .error(function (error) {
-                //$scope.status = 'Unable to load restaurant data: ' + error.message;
-                console.log('Unable to load restaurant data: ' + error.errors);
+                handlesErrors(error, 'restaurants');
             });
   }
 //Hämtar alla restauranger med viss tag
@@ -73,9 +71,7 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
                $scope.restaurants = data.restaurants;
            })
            .error(function (error) {
-               //$scope.status = 'Unable to load restaurant by tag data: ' + error.message;
-               console.log('Unable to load restaurant by tag data: ' + error.errors);
-
+               handlesErrors(error, 'restaurants');
            });
   }
 
@@ -86,10 +82,17 @@ function($scope, $sessionStorage, RestaurantService, TagService) {
                  $scope.restaurants = data.restaurants;
              })
              .error(function (error) {
-                 $scope.status = 'Unable to load restaurant by tag data: ' + error.errors;
-                 //TODO: Om inget hittas, flash meddelande
-                 console.log('Unable to load restaurant by tag data: ' + error.errors);
+                 $sessionStorage.alerts.unshift({type: 'warning', msg: 'Unable to find restaurants with "'+searchText+'" in they names.  Error: ' + error.errors});
              });
+    }
+
+    function handlesErrors(error, resource){
+      if(error == undefined){
+        $sessionStorage.alerts.unshift({type: 'warning', msg: 'Sorry, we are unabled to reach the server right now. Cant load '+resource});
+        //TODO: Try again-knapp?
+      }else{
+        $sessionStorage.alerts.unshift({type: 'warning', msg: 'Error: ' + error.errors});
+      }
     }
 
 }]);

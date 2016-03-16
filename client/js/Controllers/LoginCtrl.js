@@ -6,9 +6,8 @@ app.controller('LoginCtrl', ['$scope', '$sessionStorage', 'LoginService', functi
             console.log(data);
           })
           .error(function (error) {
-              //$scope.status = 'Unable to load tags: ' + error.message;
-              console.log('Unable to get jwt: ' + error);
-              $sessionStorage.alerts.unshift({type: 'warning', msg: 'kunde inte hämta jwt'});
+              $sessionStorage.alerts.unshift({type: 'danger', msg: 'Inloggningen misslyckades'});
+              //Sätt timeout och ta bort?
           });
 
   }

@@ -1,5 +1,5 @@
-app.controller('EditCreatorRestaurantsCtrl', ['$scope', '$stateParams', '$sessionStorage', 'RestaurantService', 'AlertService', 'LoginService',
-function($scope, $stateParams, $sessionStorage, RestaurantService, AlertService, LoginService){
+app.controller('EditCreatorRestaurantsCtrl', ['$scope', '$stateParams', '$sessionStorage', '$location', 'RestaurantService', 'AlertService', 'LoginService',
+function($scope, $stateParams, $sessionStorage, $location, RestaurantService, AlertService, LoginService){
 getRestaurants();
 
 /*GET RESTAURANT BY CREATORID*/
@@ -18,8 +18,7 @@ $scope.deleteRestaurant = function(id){
   RestaurantService.deleteRestaurant(id, LoginService.isLoggedIn().token.jwt)
         .success(function(data){
           AlertService.handlesAlerts(true, data.message, 'info');
-          //TODO:uppdatera listan
-          //getRestaurants(); //fungerar ej
+          $location.path('/restaurants');
         })
         .error(function (error) {
           AlertService.handlesAlerts(false, 'Someting went wrong, try again', 'danger');
@@ -57,11 +56,9 @@ $scope.removeTag = function(index){
     var restaurantObj = {restaurant: $scope.restaurant}
     RestaurantService.editRestaurant(restaurantObj, $scope.restaurant.id, LoginService.isLoggedIn().token.jwt)
           .success(function(data){
-            //console.log($scope.restaurants.every(findRestaurant));
             AlertService.handlesAlerts(true, 'Restaurant '+$scope.restaurant.name+' is now updated!', 'info');
             $scope.anableEdit = false;
-            //TODO:uppdatera listan
-            //getRestaurants(); //fungerar ej
+            $location.path('/restaurants');
           })
           .error(function (error) {
             console.log(error);

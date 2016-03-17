@@ -66,11 +66,8 @@ var creatorRestaurantsRoute = {
 
 
 //authentication for routes
-
 app.run(function ($rootScope, $state, LoginService) {
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-    console.log(toState);
-    console.log(toParams);
     if (toState.authenticate && !LoginService.isLoggedIn()) {
       $state.transitionTo("restaurants");
       event.preventDefault();

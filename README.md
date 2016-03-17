@@ -1,6 +1,10 @@
 ﻿Laborationer för kursen 1dv450 - webbramverk
 ####[Förändringar i API-koden under klient utvecklingen](https://github.com/RebeccaFransson/1dv450-rf222cz/wiki/F%C3%B6r%C3%A4ndringar-i-API)
 
+####Att göra:
+*Validering fattas på klienten, då detta blev försummat på grund utav tiden.
+*Lägga till flera taggar, ta bort taggar.
+
 #API-dokumentation
 ####URL
 ``https://obscure-castle-94632.herokuapp.com/api/``

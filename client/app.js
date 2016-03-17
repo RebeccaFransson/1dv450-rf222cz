@@ -12,6 +12,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
     .state('login', loginRoute)
     .state('logout', logoutRoute)
     .state('addRestaurant', addRestaurantRoute)
+    .state('creatorRestaurants', creatorRestaurantsRoute)
 }]);
 
 
@@ -21,11 +22,20 @@ var restaurantsRoute = {
   templateUrl: 'Templates/RestaurantList.html',
   controller: 'RestaurantCtrl',
   resolve: {
-    restaurants: function(RestaurantService){
-      return RestaurantService.getRestaurants();
+    restaurants: function(RestaurantService, $sessionStorage){
+      console.log($sessionStorage.restaurants == undefined);
+      if($sessionStorage.restaurants == undefined){
+        return RestaurantService.getRestaurants();
+      }else{
+        return null;
+      }
     },
-    tags: function(TagService){
-      return TagService.getTags();
+    tags: function(TagService, $sessionStorage){
+      if($sessionStorage.tags == undefined){
+        return TagService.getTags();
+      }else{
+        return null;
+      }
     }
   },
   authenticate: false
@@ -45,6 +55,12 @@ var addRestaurantRoute = {
   url: '/addRestaurant',
   templateUrl: 'Templates/AddRestaurant.html',
   controller: 'AddRestaurantCtrl',
+  authenticate: true
+};
+var creatorRestaurantsRoute = {
+  url: '/creatorRestaurants/:id',
+  templateUrl: 'Templates/CreatorRestaurants.html',
+  controller: 'CreatorRestaurantsCtrl',
   authenticate: true
 }
 

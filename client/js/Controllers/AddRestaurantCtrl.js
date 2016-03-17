@@ -1,10 +1,8 @@
-app.controller('AddRestaurantCtrl', ['$scope', '$sessionStorage', '$cacheFactory', 'RestaurantService', 'AlertService',
-function($scope, $sessionStorage, $cacheFactory, RestaurantService, AlertService){
-  console.log($cacheFactory.get('$http'));
-  //$scope.rate = 7;
-  //$scope.max = 5;
+app.controller('AddRestaurantCtrl', ['$scope', '$sessionStorage', 'RestaurantService', 'AlertService',
+function($scope, $sessionStorage, RestaurantService, AlertService){
+
   $scope.isReadonly = false;
-  $scope.tag = $sessionStorage.tag.data;
+  $scope.tags = $sessionStorage.tags.data;
 
   $scope.hoveringOver = function(value) {
     $scope.overStar = value;
@@ -15,21 +13,22 @@ function($scope, $sessionStorage, $cacheFactory, RestaurantService, AlertService
     return $scope.restaurant != undefined && $scope.restaurant.name != undefined && $scope.restaurant.description != undefined
   };
   $scope.submit =  function(){
-    $scope.restaurant.tag = {name: $scope.restaurant.tag.name};
-    $scope.restaurant.location = {name: $scope.restaurant.location.address_city};
+    $scope.restaurant.tags = [{name: $scope.restaurant.tags.name}];
+    $scope.restaurant.locations = [{address_city: $scope.restaurant.locations}];
 
+    console.log($scope.restaurant);
     RestaurantService.addRestaurant($scope.restaurant, $sessionStorage.currentUser.token.jwt)
             .success(function (data) {
-                console.log(data.restaurant.name);
-                $sessionStorage.alerts.unshift({type: 'success', msg: 'Your Restaurant is registerd!'});
-                AlertService.handlesAlerts('Your form is not valid', 'restaurants');
-                //delete $sessionStorage.restaurants;
-                var httpCache = $cacheFactory.get('$http');
-                httpCache.remove('http://localhost:3000/api/restaurants/?key=fb3737b1c0d01edd92cf64262bc8efdf');
+                AlertService.handlesAlerts(true, 'Your Restaurant is registerd!', 'success');//true is for a good message
+                delete $sessionStorage.restaurants;
             })
             .error(function (error) {
               console.log(error);
-                AlertService.handlesAlerts('Your form is not valid', 'restaurants');
+              if(error.errors){
+                AlertService.handlesAlerts(false, error.errors, 'warning');//false stands for an error
+              }else{
+                AlertService.handlesAlerts(false, 'Your form is not valid', 'warning');
+              }
             });
   };
 

@@ -7,24 +7,23 @@ function($scope, $sessionStorage, $location, LoginService, AlertService){
             setCurrentUser($scope.login.email, token);
           })
           .error(function (error) {
-              AlertService.handlesErrors(error = {errors: 'The login failed'});
+              AlertService.handlesErrors(true, 'The login failed!',  'warning');
           });
   };
 
   $scope.isEmpty = function(){
-    return $scope.login != undefined && $scope.login.email != undefined && $scope.login.password != undefined
+    return $scope.login !== undefined && $scope.login.email !== undefined && $scope.login.password !== undefined
   };
 
   function setCurrentUser(email, token){
     LoginService.getCreatorByEmail(email)
           .success(function(userdata){
             $sessionStorage.currentUser = {userdata, token};
-            $sessionStorage.alerts.unshift({type: 'success', msg: 'Welcome to Restaurant Map, you are now logged in!'});
-            //TODO: alertservice istället
+            AlertService.handlesAlerts(true, 'Welcome to Restaurant Map, you are now logged in!', 'info');
             $location.path( '/restaurants');
           })
-          .error(function (error) {
-              AlertService.handlesErrors(error = {errors: "Couldn't get user with this email "+email});
+          .error(function(error){
+              AlertService.handlesErrors(false, "Couldn't get user with this email "+email,  'danger');
           });
 
   }

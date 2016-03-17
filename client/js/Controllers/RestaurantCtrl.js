@@ -1,32 +1,26 @@
 
-app.controller('RestaurantCtrl', ['$scope', '$sessionStorage', 'restaurants', 'tags', 'RestaurantService', 'TagService', 'AlertService',
-function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagService, AlertService) {
+app.controller('RestaurantCtrl', ['$scope', '$sessionStorage', 'restaurants', 'tags', 'RestaurantService', 'TagService', 'AlertService', 'LoginService',
+function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagService, AlertService, LoginService) {
   'use strict';
-  //delete $sessionStorage.restaurants;
-  $scope.restaurants = restaurants.data.restaurants;
-  $sessionStorage.restaurants = $scope.restaurants;
-  $scope.tag = tags.data.tags;
-  //console.log($sessionStorage.currentUser);
 
-console.log($sessionStorage.restaurants);
-  if($sessionStorage.restaurants == undefined || $sessionStorage.tag.expire < new Date().getTime()){
-    getRestaurants();
+  //Om en ny tag eller resturang är tilllagd tas sessionen bort
+  //Kollar om det finns en session annars hämtar vi ny data från api
+  if(restaurants !== null){
+    $sessionStorage.restaurants = {data: restaurants.data.restaurants, expire: new Date().getTime()+(1*60000)}
   }
-
-  $scope.restaurants = $sessionStorage.restaurants;
-
-
+  if(tags !== null){
+    $sessionStorage.tags = {data: tags.data.tags, expire: new Date().getTime()+(1*60000)}
+  }
 
 //Kolla om det finns något sparat i sessionen, eller om utgångsdaumet för sessionen har gått ut(20min).
 //Hämta nya taggar om sessionen inte stämmer
 //Annars använder vi oss utav de som finns sparade i sessionen
 //taggar
-/*
-  if($sessionStorage.tag == undefined || $sessionStorage.tag.expire < new Date().getTime()){
+  if($sessionStorage.tags == undefined || $sessionStorage.tags.expire < new Date().getTime()){
     console.log('byter ut taggar från session');
     getTags();
   }else{
-    $scope.tag = $sessionStorage.tag.data;
+    $scope.tags = $sessionStorage.tags.data;
   }
 //restauranger
   if($sessionStorage.restaurants == undefined || $sessionStorage.restaurants.expire < new Date().getTime()){
@@ -35,7 +29,7 @@ console.log($sessionStorage.restaurants);
   }else{
     $scope.restaurants = $sessionStorage.restaurants.data;
   }
-*/
+
 
 //Vid förändring i select-tags
   $scope.searchTag = function(){
@@ -45,6 +39,16 @@ console.log($sessionStorage.restaurants);
     getRestaurantByQuery(this.searchText);
     this.searchText = '';
   }
+  $scope.isYourResturant = function(rest){
+    //console.log(rest.creator);
+  }
+  $scope.isYourResturantClick = function(rest){
+    console.log(rest.creator);
+    var user = LoginService.isLoggedIn();
+    console.log(user.userdata.creator);
+    console.log(user.userdata.creator.email == rest.creator.email);
+    return user.userdata.creator.email == rest.creator.email;
+  }
 
 
 
@@ -52,21 +56,22 @@ console.log($sessionStorage.restaurants);
   function getTags(){
     TagService.getTags()
       .success(function(data){
-        $scope.tag = data.tags;
-        $sessionStorage.tag = {data: $scope.tag, expire: new Date().getTime()+(1*60000)};
+        $scope.tags = data.tags;
+        $sessionStorage.tags = {data: $scope.tags, expire: new Date().getTime()+(1*60000)};
       })
       .error(function (error) {
-          AlertService.handlesErrors(error, 'tags');
+          AlertService.handlesAlerts(false, error, 'tags');
       });
   }
 //Hämtar alla restauranger
   function getRestaurants(){
     RestaurantService.getRestaurants()
             .success(function (data) {
-                $sessionStorage.restaurants = {data: data.restaurants, expire: new Date().getTime()+(1*60000)};
+                $scope.restaurants = data.restaurants;
+                $sessionStorage.restaurants = {data: $scope.restaurants, expire: new Date().getTime()+(1*60000)};
             })
             .error(function (error) {
-                AlertService.handlesErrors(error, 'restaurants');
+                AlertService.handlesAlerts(false, error, 'restaurants');
             });
   }
 
@@ -77,7 +82,7 @@ console.log($sessionStorage.restaurants);
                $scope.restaurants = data.restaurants;
            })
            .error(function (error) {
-               AlertService.handlesErrors(error, 'restaurants');
+               AlertService.handlesAlerts(false, error, 'restaurants');
            });
   }
 

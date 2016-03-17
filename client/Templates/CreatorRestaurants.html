@@ -1,0 +1,23 @@
+
+<div class="col-md-12">
+
+  <uib-accordion close-others="oneAtATime">
+    <uib-accordion-group ng-repeat="rest in restaurants" is-open="status.open">
+        <uib-accordion-heading>
+          {{ rest.name }}
+          <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+
+        <div class="col-md-10">
+          {{ rest.description }}
+        </div>
+
+        <div class="col-md-2">
+          <button type="button" class="btn btn-warning" ng-click="editRestaurant(rest)">Edit</button>
+          <button type="button" class="btn btn-danger" ng-click="deleteRestaurant(rest.id)">Delete</button>
+        </div>
+
+      </uib-accordion-group>
+    </uib-accordion>
+
+</div>

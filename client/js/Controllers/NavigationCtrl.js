@@ -1,5 +1,8 @@
-app.controller('NavigationCtrl', ['$scope', '$sessionStorage', function($scope, $sessionStorage){
+app.controller('NavigationCtrl', ['$scope', 'LoginService', function($scope, LoginService){
   $scope.isLoggedIn = function(){
-    return $sessionStorage.currentUser;
+    return LoginService.isLoggedIn() !== undefined;
+  }
+  if($scope.isLoggedIn()){
+    $scope.user = LoginService.isLoggedIn().userdata.creator;
   }
 }])

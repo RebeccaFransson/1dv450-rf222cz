@@ -1,6 +1,6 @@
-app.controller('LogoutCtrl', ['$scope', '$sessionStorage', '$location', '$window', function($scope, $sessionStorage, $location, $window){
+app.controller('LogoutCtrl', ['$scope', '$sessionStorage', '$location', 'AlertService',
+function($scope, $sessionStorage, $location, AlertService){
   delete $sessionStorage.currentUser;
-  $sessionStorage.alerts.unshift({type: 'info', msg: "Bye and welcome back! Hope we'll see you again soon!"});
+  AlertService.handlesAlerts(true, "Bye and welcome back! Hope we'll see you again soon!", 'info');
   $location.path('/restaurants');//fungerar en med denna redrirect
-  console.log('logged out');
 }])

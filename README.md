@@ -2,8 +2,9 @@
 ####[Förändringar i API-koden under klient utvecklingen](https://github.com/RebeccaFransson/1dv450-rf222cz/wiki/F%C3%B6r%C3%A4ndringar-i-API)
 
 ####Att göra:
-*Validering fattas på klienten, då detta blev försummat på grund utav tiden.
-*Lägga till flera taggar, ta bort taggar.
+
+* Validering fattas på klienten, då detta blev försummat på grund utav tiden.
+* Lägga till flera taggar, ta bort taggar.
 
 #API-dokumentation
 ####URL
@@ -59,11 +60,13 @@ Formatet för responsen är JSON som standard. Om xml önskas skriv på ``.xml``
 ###Starta applikationen
 Publicerad applikation: [här](https://obscure-castle-94632.herokuapp.com/)
 
+Men för peer review 3 skall du ta ner och använda den lokala appliaktionen.
+
 Inloggningsuppgifter:
 * admin@user.se - adminpassword
 * rebecca@awesome.se - hejsan
 
-###Om du hellre vill starta applikationen från din egen dator
+###Starta applikationen från din egen dator
 (Ha ruby och on rails installerat på datorn!)
 
 1. Ta ner applikationen från github.
@@ -71,7 +74,8 @@ Inloggningsuppgifter:
 3. Öppna en git bash(eller annan konsol) i mappen applikationen ligger i
 4. Skriv in 'bundle install --without production' - för att installera alla gems
 5. Skriv in 'rake db:migrate' - för att starta upp databasen
-6. Skriv in 'rake db:schema:load' - för att få in admin i databasen.
+6. Skriv in 'rake db:schema:load' - för att få in data i databasen.
 7. Skriv in 'rails s' - för att starta upp servern! (Den berättar sedan sökvägen för dig, tror det blir localhost:3000)
+8. Klientsidan öppnar du genom att dubbelklicka på ``index.html``
 
 ##Lycka till!

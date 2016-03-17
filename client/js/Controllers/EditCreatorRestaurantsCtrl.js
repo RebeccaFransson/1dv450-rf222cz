@@ -33,10 +33,15 @@ $scope.showEditRestaurant = function(rest){
   }else{
     $scope.anableEdit = false;
   }
+  console.log(rest.locations);
   $scope.restaurant = rest;
+  $scope.amountLocations = rest.locations;
   $scope.tags = $sessionStorage.tags.data;
 };
 
+$scope.addLocationInput = function(){
+  $scope.amountLocations.push({});
+}
 $scope.addTag = function(){
   if($scope.restaurant.tags == undefined){
     $scope.restaurant.tags = [];

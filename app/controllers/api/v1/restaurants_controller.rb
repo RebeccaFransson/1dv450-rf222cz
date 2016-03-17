@@ -89,7 +89,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
             #if l.present?#Is this nessecery? Can there really be two restaurant on one address? Dont think so
               #rest.locations << l
             #else
-              rest.locations << Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
+              Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
             #end
           end
         end

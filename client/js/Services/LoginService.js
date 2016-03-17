@@ -2,7 +2,7 @@ app.factory('LoginService', ['Resources', '$sessionStorage', function(Resources,
   'use strict';
 
   this.getJWT= function(usercred) {
-    return Resources.postResource('knock/auth_token/', {auth: usercred} , 'http://localhost:3000/');
+    return Resources.postResource('knock/auth_token/', {auth: usercred}, {}, 'http://localhost:3000/');
   }
 
   //hämta user info ->currentuser

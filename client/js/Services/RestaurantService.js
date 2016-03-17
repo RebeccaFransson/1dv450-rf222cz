@@ -13,24 +13,28 @@ app.factory('RestaurantService', ['Resources', function(Resources){//Deklarerar 
     }
   };
 
-  /*this.getRestaurant = function(id) {
+  this.getRestaurantById = function(id) {
     return Resources.getResources('restaurants/'+id+'/');
-  };*/
+  };
 
   this.getRestaurantbyQuery = function(searchText) {
     return Resources.getResources('restaurants/', {query: searchText});
   }
   this.getRestaurantbyCreator = function(creatorid) {
-    return Resources.getResources('creators/'+creatorid+'/restaurants');
+    return Resources.getResources('creators/'+creatorid+'/restaurants/');
   }
 
   /*ADD RESTAURANT*/
   this.addRestaurant = function(restaurantObj, token){
-    return Resources.postResource('restaurants/', {restaurant: restaurantObj}, undefined, {Authorization: token});
+    return Resources.postResource('restaurants/', restaurantObj, {}, undefined, {Authorization: token});
   }
   /*DELETE RESTAURANT*/
   this.deleteRestaurant = function(id, token){
-    return Resources.deleteResource('restaurants/'+id, {Authorization: token});
+    return Resources.deleteResource('restaurants/'+id+'/', {Authorization: token});
+  }
+  /*EDIT RESTAURANT*/
+  this.editRestaurant = function(rest, id, token){
+    return Resources.editResource('restaurants/'+id+'/', {Authorization: token}, rest);
   }
 
   return this;

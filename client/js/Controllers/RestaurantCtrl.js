@@ -82,7 +82,7 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
                $scope.restaurants = data.restaurants;
            })
            .error(function (error) {
-               AlertService.handlesAlerts(false, error, 'restaurants');
+               AlertService.handlesAlerts(false, error, 'restaurants', 'warning');
            });
   }
 
@@ -93,7 +93,7 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
                  $scope.restaurants = data.restaurants;
              })
              .error(function (error) {
-                 $sessionStorage.alerts.unshift({type: 'warning', msg: 'Unable to find restaurants with "'+searchText+'" in they names.  Error: ' + error.errors});
+                AlertService.handlesAlerts(false, 'Unable to find restaurants with "'+searchText+'" in they names.', 'warning', 'restaurants');
              });
     }
 

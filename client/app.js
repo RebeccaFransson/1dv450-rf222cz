@@ -60,13 +60,13 @@ var addRestaurantRoute = {
 var creatorRestaurantsRoute = {
   url: '/creatorRestaurants/:id',
   templateUrl: 'Templates/CreatorRestaurants.html',
-  controller: 'CreatorRestaurantsCtrl',
+  controller: 'EditCreatorRestaurantsCtrl',
   authenticate: true
 }
 
 
 //authentication for routes
-/*
+
 app.run(function ($rootScope, $state, LoginService) {
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
     console.log(toState);
@@ -77,4 +77,3 @@ app.run(function ($rootScope, $state, LoginService) {
     }
   });
 });
-*/

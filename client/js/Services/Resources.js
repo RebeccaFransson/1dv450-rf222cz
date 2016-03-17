@@ -9,10 +9,11 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
     })
   }
 
-  this.postResource = function(resource, resourceParams, baseUrl, headers){
+  this.postResource = function(resource, object, resourceParams, baseUrl, headers){
+    console.log(headers);
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
-    return $http.post(url + resource,{
+    return $http.post(url + resource, object,{
       headers: headers,
       params: params
     })
@@ -22,6 +23,15 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
     return $http.delete(url + resource,{
+      headers: headers,
+      params: params
+    })
+  }
+
+  this.editResource = function(resource, headers, object, baseUrl, resourceParams){
+    var params = Object.assign({ key: api_key }, resourceParams);
+    var url = baseUrl == undefined ? base_url : baseUrl;
+    return $http.put(url + resource, object, {
       headers: headers,
       params: params
     })

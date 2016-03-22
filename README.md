@@ -5,6 +5,7 @@
 
 * Validering fattas på klienten, då detta blev försummat på grund utav tiden.
 * Lägga till flera taggar, ta bort taggar.
+
 #Klient-inloggningsuppgifter
 email: rebecca@restaurantmap.com 
 lösenord: hejsan

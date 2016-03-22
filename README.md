@@ -2,8 +2,12 @@
 ####[Förändringar i API-koden under klient utvecklingen](https://github.com/RebeccaFransson/1dv450-rf222cz/wiki/F%C3%B6r%C3%A4ndringar-i-API)
 
 ####Att göra:
-*Validering fattas på klienten, då detta blev försummat på grund utav tiden.
+*Validering fattas på klienten, detta blev försummat på grund utav tidsbrist
 *Lägga till flera taggar, ta bort taggar.
+
+#Klient-inloggningsuppgifter
+*email: rebecca@restaurantmap.com
+*lösenord: hejsan
 
 #API-dokumentation
 ####URL

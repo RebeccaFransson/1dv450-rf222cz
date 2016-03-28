@@ -13,6 +13,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
     .state('logout', logoutRoute)
     .state('addRestaurant', addRestaurantRoute)
     .state('creatorRestaurants', creatorRestaurantsRoute)
+    .state('tags', tagsRoute)
 }]);
 
 
@@ -61,12 +62,24 @@ var creatorRestaurantsRoute = {
   templateUrl: 'Templates/CreatorRestaurants.html',
   controller: 'CreatorRestaurantsCtrl',
   authenticate: true
+};
+var tagsRoute = {
+  url: '/handleTags',
+  templateUrl: 'Templates/HandleTags.html',
+  controller: 'HandleTagsCtrl',
+  authenticate: true,
+  resolve: {
+    tags: function(TagService, $sessionStorage){
+        return TagService.getTags();
+    }
+  }
 }
 
 
 //authentication for routes
 app.run(function ($rootScope, $state, LoginService) {
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+    console.log(toParams);
     if (toState.authenticate && !LoginService.isLoggedIn()) {
       $state.transitionTo("restaurants");
       event.preventDefault();

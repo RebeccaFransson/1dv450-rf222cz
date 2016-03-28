@@ -11,6 +11,7 @@
       <div class="jumbotron">
         <h1>Restaurant map</h1>
         <div class="col-md-12" ng-controller="NavigationCtrl">
+          <a ui-sref="restaurants" class="col-md-2">Map</a>
             <div ng-if="isLoggedIn()">
               <loggedinnav></loggedinnav>
             </div>
@@ -56,5 +57,6 @@
     <script src="js/Controllers/LogoutCtrl.js"></script>
     <script src="js/Controllers/CreatorRestaurantsCtrl.js"></script>
     <script src="js/Controllers/EditRestaurantCtrl.js"></script>
+    <script src="js/Controllers/HandleTagsCtrl.js"></script>
   </body>
 </html>

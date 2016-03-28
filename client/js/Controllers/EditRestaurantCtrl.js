@@ -40,7 +40,6 @@ function($scope, $sessionStorage, $stateParams, $location, $uibModalInstance, Re
     RestaurantService.editRestaurant(restaurantObj, $scope.rest.id, user.token.jwt)
           .success(function(data){
             AlertService.handlesAlerts(true, 'Restaurant '+$scope.rest.name+' is now updated!', 'info');
-            $scope.anableEdit = false;
             $location.path('/creatorRestaurants/'+user.userdata.creator.id);
             $scope.cancel();
           })

@@ -1,0 +1,11 @@
+<div class="col-md-12" ng-repeat="tag in tags">
+  <div class="well">
+    <div class="col-md-8">
+      <h4>{{ tag.name }}</h3>
+    </div>
+    <div>
+      <button type="button" class="btn btn-warning" ng-click="showEditTagModal(tag)">Edit</button>
+      <button type="button" class="btn btn-danger" ng-click="deleteTag(tag.id)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -108,7 +108,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
       ##Is there any tags to this restaurant?
       if restaurants_params[:tags].present?
         tag_params = restaurants_params[:tags]
-        rest.tags == nil
+        rest.tags = []
         tag_params.each do |tag|
           if Tag.find_by_name(tag["name"]).present?
             rest.tags << Tag.find_by_name(tag["name"])
@@ -120,6 +120,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
       #Is there any locations to this restaurant
       if restaurants_params[:locations].present?
+        rest.locations = []
         restaurants_params[:locations].each do |loc|
           Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
         end

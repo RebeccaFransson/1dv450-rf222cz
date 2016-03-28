@@ -20,6 +20,7 @@ app.factory('Resources', ['$http', '$cacheFactory', '$sessionStorage', 'api_key'
   }
 
   this.deleteResource = function(resource, headers, baseUrl, resourceParams){
+    console.log(headers);
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
     updateCacheRestaurants();
@@ -42,6 +43,7 @@ app.factory('Resources', ['$http', '$cacheFactory', '$sessionStorage', 'api_key'
   var updateCacheRestaurants = function(){
     var $httpDefaultCache = $cacheFactory.get('$http');
     $httpDefaultCache.remove('restaurants/');
+    $httpDefaultCache.remove('tags/');
     delete $sessionStorage.restaurants;
   }
 

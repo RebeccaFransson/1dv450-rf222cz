@@ -10,7 +10,6 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
   }
 
   this.postResource = function(resource, object, resourceParams, baseUrl, headers){
-    console.log(headers);
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
     return $http.post(url + resource, object,{

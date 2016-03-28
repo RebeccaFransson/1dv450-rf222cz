@@ -1,6 +1,6 @@
 app.controller('AlertCtrl', ['$scope', '$sessionStorage', function($scope, $sessionStorage) {
 
-  $sessionStorage.alerts = [];//{type: 'info', msg: 'Welcome to Restaurant Map, enjoy your stay!'}
+  $sessionStorage.alerts = [];
 
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);

@@ -11,3 +11,9 @@
   padding: 30px;
   box-shadow: 9px 7px 24px -8px rgba(0,0,0,0.75);
 }
+.navigation{
+  text-align: center;
+}
+.tooHighBtn{
+  margin-top: 24px;
+}

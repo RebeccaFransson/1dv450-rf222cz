@@ -49,7 +49,16 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
     console.log(user.userdata.creator.email == rest.creator.email);
     return user.userdata.creator.email == rest.creator.email;
   }
+  $scope.allRestaurants = function(){
+    $scope.restaurants = $sessionStorage.restaurants.data
+  }
 
+/*PAGINERING*/
+  $scope.currentPage = 0;
+  $scope.pageSize = 5;
+  $scope.numberOfPages=function(){
+        return Math.ceil($scope.restaurants.length/$scope.pageSize);
+    }
 
 
 //Hämtar alla taggar
@@ -98,3 +107,13 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
     }
 
 }]);
+
+//ett filtertill min paginering, tyckteinte det var lönt med en ny fil för dessa få rader
+app.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        console.log(input);
+        console.log(start);
+        return input.slice(start);
+    }
+});

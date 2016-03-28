@@ -34,7 +34,14 @@ $scope.showEditModal = function(rest){
     size: 'lg',
     resolve: {
       restaurant: function () {
-         return rest;
+        //Tvungen att göra nytt obj så att den gamla ej ändras i klienten ifall användaren skulla avbryta ändringen
+         return {
+           name: rest.name,
+           description: rest.description,
+           stars: rest.stars,
+           locations: rest.locations,
+           tags: rest.tags
+         };
        }
     }
   })

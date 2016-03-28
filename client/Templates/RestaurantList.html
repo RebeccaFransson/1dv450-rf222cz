@@ -5,19 +5,20 @@
     <select class="form-control" ng-model="select" ng-options="t.name for t in tags" ng-change="searchTag()"></select>
   </div>
   <div class="form-group col-md-3">
+    <button type="button" class="btn btn-info tooHighBtn" ng-click="allRestaurants()">All restaurants</button>
   </div>
   <div class="form-group col-md-4">
     <label>Search on restaurant names</label>
     <input type="text" class="form-control" ng-model="searchText">
   </div>
   <div class="form-group col-md-1">
-    <button type="button" class="btn btn-info" ng-click="searchRestaurants()">Search</button>
+    <button type="button" class="btn btn-info tooHighBtn" ng-click="searchRestaurants()">Search</button>
   </div>
 </div>
 
 <div class="col-md-6">
   <uib-accordion close-others="oneAtATime">
-    <uib-accordion-group ng-repeat="rest in restaurants" is-open="status.open">
+    <uib-accordion-group ng-repeat="rest in restaurants | startFrom:currentPage*pageSize | limitTo:pageSize" is-open="status.open">
         <uib-accordion-heading>
             {{ rest.name }}
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
@@ -38,4 +39,16 @@
 
 <div class="col-md-6">
   <div ng-include="'Templates/Map.html'" ></div>
+</div>
+
+<div class="col-md-6 navigation">
+  <div class="col-md-4">
+    <button class="btn btn-info" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
+  </div>
+  <div class="col-md-4">
+    {{currentPage+1}}/{{numberOfPages()}}
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-info" ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
+  </div>
 </div>

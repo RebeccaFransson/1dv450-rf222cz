@@ -14,11 +14,12 @@ function getRestaurants(){
 };
 
 /*DELETE*/
-$scope.deleteRestaurant = function(id){
+$scope.deleteRestaurant = function(id, index){
   RestaurantService.deleteRestaurant(id, LoginService.isLoggedIn().token.jwt)
         .success(function(data){
           AlertService.handlesAlerts(true, data.message, 'info');
           $location.path('/restaurants');
+          $scope.restaurants.splice(index, 1);
         })
         .error(function (error) {
           AlertService.handlesAlerts(false, 'Someting went wrong, try again', 'danger');
@@ -26,7 +27,6 @@ $scope.deleteRestaurant = function(id){
 };
 
 $scope.showEditModal = function(rest){
-  console.log('show');
   var modalInstance = $uibModal.open({
     animation: true,
     templateUrl: 'Templates/EditRestaurant2.html',

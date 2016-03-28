@@ -1,8 +1,15 @@
 'use strict';
 var app = angular.module('RestaurantMap', ['ui.router', 'ui.bootstrap', 'ngMap', 'ngStorage']);
-app.constant('api_key', 'fb3737b1c0d01edd92cf64262bc8efdf')
-app.constant('base_url', 'http://localhost:3000/api/')
-
+app.constant('api_key', 'fb3737b1c0d01edd92cf64262bc8efdf');
+app.constant('base_url', 'http://localhost:3000/api/');
+//ett filtertill min paginering, tyckteinte det var lönt med en ny fil för dessa få rader
+//Ibalnd ger den ifrån sig några fel, och ibalnd inte.. Men den fungerar alltid.
+app.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start;
+        return input.slice(start);
+    }
+});
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
 
   $urlRouterProvider.otherwise('/restaurants');

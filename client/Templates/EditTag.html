@@ -1,0 +1,12 @@
+<form name="restaurantForm" class="col-md-12 EditModal" required >
+  <h2>Edit tag</h2>
+   <div class="form-group">
+     <label>Name:</label>
+     <input type="text" class="form-control" ng-model="tag.name">
+   </div>
+
+   <div class="col-md-12">
+    <button type="submit" class="btn btn-success" ng-click="editTagSubmit()">Save</button>
+    <button type="submit" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+   </div>
+ </form>

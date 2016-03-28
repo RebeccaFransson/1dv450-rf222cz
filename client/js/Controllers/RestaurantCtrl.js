@@ -107,12 +107,3 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
     }
 
 }]);
-
-//ett filtertill min paginering, tyckteinte det var lönt med en ny fil för dessa få rader
-//Ibalnd ger den ifrån sig några fel, och ibalnd inte.. Men den fungerar alltid.
-app.filter('startFrom', function() {
-    return function(input, start) {
-        start = +start;
-        return input.slice(start);
-    }
-});

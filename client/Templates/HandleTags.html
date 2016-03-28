@@ -1,11 +1,23 @@
-<div class="col-md-12" ng-repeat="tag in tags">
+<div class="col-md-12" ng-repeat="tag in tags | startFrom:currentPage*pageSize | limitTo:pageSize">
   <div class="well">
     <div class="col-md-8">
       <h4>{{ tag.name }}</h3>
     </div>
     <div>
       <button type="button" class="btn btn-warning" ng-click="showEditTagModal(tag)">Edit</button>
-      <button type="button" class="btn btn-danger" ng-click="deleteTag(tag.id)">Delete</button>
+      <button type="button" class="btn btn-danger" ng-click="deleteTag(tag.id, $index)">Delete</button>
     </div>
+  </div>
+
+</div>
+<div class="col-md-12 navigation">
+  <div class="col-md-4">
+    <button class="btn btn-info" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
+  </div>
+  <div class="col-md-4">
+    {{currentPage+1}}/{{numberOfPages()}}
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-info" ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
   </div>
 </div>

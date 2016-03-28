@@ -57,7 +57,6 @@ function($scope, $sessionStorage, $location, RestaurantService, AlertService){
     RestaurantService.addRestaurant(restaurantSendObj, $sessionStorage.currentUser.token.jwt)
             .success(function (data) {
                 AlertService.handlesAlerts(true, 'Your Restaurant is registerd!', 'success');//true is for a good message
-                delete $sessionStorage.restaurants;
                 console.log($sessionStorage.restaurants);
                 $location.path('/restaurants');
             })

@@ -23,7 +23,6 @@ var restaurantsRoute = {
   controller: 'RestaurantCtrl',
   resolve: {
     restaurants: function(RestaurantService, $sessionStorage){
-      console.log($sessionStorage.restaurants == undefined);
       if($sessionStorage.restaurants == undefined){
         return RestaurantService.getRestaurants();
       }else{
@@ -60,7 +59,7 @@ var addRestaurantRoute = {
 var creatorRestaurantsRoute = {
   url: '/creatorRestaurants/:id',
   templateUrl: 'Templates/CreatorRestaurants.html',
-  controller: 'EditCreatorRestaurantsCtrl',
+  controller: 'CreatorRestaurantsCtrl',
   authenticate: true
 }
 

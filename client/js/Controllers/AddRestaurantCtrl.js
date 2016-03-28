@@ -3,9 +3,7 @@ function($scope, $sessionStorage, $location, RestaurantService, AlertService){
 
   $scope.isReadonly = false;
   $scope.tags = $sessionStorage.tags.data;
-  $scope.amountTags = [{}];
   $scope.amountLocations = [{}];
-
 
 
   $scope.hoveringOver = function(value) {
@@ -20,17 +18,24 @@ function($scope, $sessionStorage, $location, RestaurantService, AlertService){
 
   $scope.addLocationInput = function(){
     $scope.amountLocations.push({});
-  }
+  };
   $scope.addTag = function(){
     if($scope.restaurant.tags == undefined){
       $scope.restaurant.tags = [];
     }
     console.log($scope.restaurant.selectTag);
     $scope.restaurant.tags.push({name: $scope.restaurant.selectTag.name})
-  }
+  };
+  $scope.addTagInput = function(){
+    if($scope.restaurant.tags == undefined){
+      $scope.restaurant.tags = [];
+    }
+    $scope.restaurant.tags.push({name: $scope.restaurant.newTag})
+    $scope.restaurant.newTag = '';
+  };
   $scope.removeTag = function(index){
     $scope.restaurant.tags.splice(index, 1);
-  }
+  };
 
 
   $scope.submit = function(){

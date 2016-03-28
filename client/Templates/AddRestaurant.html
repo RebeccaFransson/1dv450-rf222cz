@@ -4,24 +4,40 @@
      <label>Name:</label>
      <input type="text" class="form-control" ng-model="restaurant.name">
    </div>
+   
    <div class="form-group">
      <label>Description:</label>
      <input class="form-control" ng-model="restaurant.description">
    </div>
+
    <div class="form-group" ng-repeat="item in amountLocations">
      <label>Location:</label>
      <input class="form-control" ng-model="restaurant.location[$index]" placeholder="Adress, city">
    </div>
-   <button class="btn btn-info" ng-click="addLocationInput()">Add location</button>
-
+   <div class="">
+     <button class="btn btn-info" ng-click="addLocationInput()">Add location</button>
+   </div>
    <div class="col-md-4">
-     <label>Choose tags:</label>
+     <label>Add existing tag:</label>
      <select class="form-control" ng-model="restaurant.selectTag" ng-options="t.name for t in tags" ng-change="addTag()"></select>
    </div>
-   <div class="col-md-8">
+
+   <div class="col-md-4">
+     <div class="">
+       <label>Add new tag:</label>
+     </div>
+     <div class="col-md-8">
+       <input class="form-control" ng-model="restaurant.newTag" placeholder="New tag">
+     </div>
+     <div class="col-md-4">
+       <button class="btn btn-info" ng-click="addTagInput()">Add</button>
+     </div>
+   </div>
+
+   <div class="col-md-4">
      <label>Added tags:</label>
      <div ng-repeat="tag in restaurant.tags">
-       <div class="col-md-2">
+       <div class="col-md-6">
          <label>{{tag.name}}</label> <a ng-click="removeTag($index)" class="glyphicon glyphicon-remove"/>
        </div>
      </div>

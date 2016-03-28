@@ -58,6 +58,7 @@ function($scope, $sessionStorage, $location, RestaurantService, AlertService){
             .success(function (data) {
                 AlertService.handlesAlerts(true, 'Your Restaurant is registerd!', 'success');//true is for a good message
                 delete $sessionStorage.restaurants;
+                console.log($sessionStorage.restaurants);
                 $location.path('/restaurants');
             })
             .error(function (error) {

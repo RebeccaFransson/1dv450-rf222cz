@@ -55,7 +55,7 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
 
 /*PAGINERING*/
   $scope.currentPage = 0;
-  $scope.pageSize = 5;
+  $scope.pageSize = 6;
   $scope.numberOfPages=function(){
         return Math.ceil($scope.restaurants.length/$scope.pageSize);
     }
@@ -109,11 +109,10 @@ function($scope, $sessionStorage, restaurants, tags, RestaurantService, TagServi
 }]);
 
 //ett filtertill min paginering, tyckteinte det var lönt med en ny fil för dessa få rader
+//Ibalnd ger den ifrån sig några fel, och ibalnd inte.. Men den fungerar alltid.
 app.filter('startFrom', function() {
     return function(input, start) {
-        start = +start; //parse to int
-        console.log(input);
-        console.log(start);
+        start = +start;
         return input.slice(start);
     }
 });

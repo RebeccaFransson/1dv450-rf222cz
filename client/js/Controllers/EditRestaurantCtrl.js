@@ -16,7 +16,6 @@ function($scope, $sessionStorage, $stateParams, $location, $uibModalInstance, Re
     if($scope.rest.tags == undefined){
       $scope.rest.tags = [];
     }
-    console.log($scope.rest.selectTag);
     $scope.rest.tags.push({name: $scope.rest.selectTag.name})
   };
   $scope.addTagInput = function(){
@@ -36,6 +35,7 @@ function($scope, $sessionStorage, $stateParams, $location, $uibModalInstance, Re
 
   $scope.editRestaurantSubmit = function(){
     var restaurantObj = {restaurant: $scope.rest}
+    console.log($scope.rest);
     var user = LoginService.isLoggedIn();
     RestaurantService.editRestaurant(restaurantObj, $scope.rest.id, user.token.jwt)
           .success(function(data){
@@ -49,5 +49,4 @@ function($scope, $sessionStorage, $stateParams, $location, $uibModalInstance, Re
             AlertService.handlesAlerts(false, 'Someting went wrong, try again', 'danger');
           });
   }
-
 }]);

@@ -36,6 +36,7 @@ $scope.showEditModal = function(rest){
       restaurant: function () {
         //Tvungen att göra nytt obj så att den gamla ej ändras i klienten ifall användaren skulla avbryta ändringen
          return {
+           id: rest.id,
            name: rest.name,
            description: rest.description,
            stars: rest.stars,

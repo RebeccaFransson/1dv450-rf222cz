@@ -1,4 +1,4 @@
-app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_key, base_url){
+app.factory('Resources', ['$http', '$cacheFactory', 'api_key', 'base_url', function($http, $cacheFactory, api_key, base_url){
   'use strict';
 
   this.getResources = function(resource, resourceParams){
@@ -12,6 +12,7 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
   this.postResource = function(resource, object, resourceParams, baseUrl, headers){
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
+    updateCache();
     return $http.post(url + resource, object,{
       headers: headers,
       params: params
@@ -21,6 +22,7 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
   this.deleteResource = function(resource, headers, baseUrl, resourceParams){
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
+    updateCache();
     return $http.delete(url + resource,{
       headers: headers,
       params: params
@@ -30,10 +32,18 @@ app.factory('Resources', ['$http', 'api_key', 'base_url', function($http, api_ke
   this.editResource = function(resource, headers, object, baseUrl, resourceParams){
     var params = Object.assign({ key: api_key }, resourceParams);
     var url = baseUrl == undefined ? base_url : baseUrl;
+    updateCache();
     return $http.put(url + resource, object, {
       headers: headers,
       params: params
     })
+  }
+
+  var updateCache = function(){
+    console.log('uppdaerar cache');
+    var $httpDefaultCache = $cacheFactory.get('$http');
+    console.log($httpDefaultCache);
+    $httpDefaultCache.remove('restaurants/');
   }
 
   return this;

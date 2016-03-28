@@ -104,6 +104,27 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def update
     if rest = Restaurant.find_by_id(params[:id])
+
+      ##Is there any tags to this restaurant?
+      if restaurants_params[:tags].present?
+        tag_params = restaurants_params[:tags]
+        rest.tags == nil
+        tag_params.each do |tag|
+          if Tag.find_by_name(tag["name"]).present?
+            rest.tags << Tag.find_by_name(tag["name"])
+          else
+            rest.tags << Tag.create(tag)
+          end
+        end
+      end
+
+      #Is there any locations to this restaurant
+      if restaurants_params[:locations].present?
+        restaurants_params[:locations].each do |loc|
+          Location.create(address_city: loc["address_city"], restaurant_id: rest.id)
+        end
+      end
+
       if rest.update(restaurants_params.except(:tags, :locations))
         restloc = rest.locations.as_json(only: [:id, :address_city, :latitude, :longitude])
         respond_with :api, rest do |format|

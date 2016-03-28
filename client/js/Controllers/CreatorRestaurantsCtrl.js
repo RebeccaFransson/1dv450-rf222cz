@@ -26,10 +26,17 @@ $scope.deleteRestaurant = function(id){
 };
 
 $scope.showEditModal = function(rest){
+  console.log('show');
   var modalInstance = $uibModal.open({
     animation: true,
-    templateUrl: 'Templates/EditRestaurant.html',
-    controller: 'EditRestaurantCtrl'
+    templateUrl: 'Templates/EditRestaurant2.html',
+    controller: 'EditRestaurantCtrl',
+    size: 'lg',
+    resolve: {
+      restaurant: function () {
+         return rest;
+       }
+    }
   })
 };
 

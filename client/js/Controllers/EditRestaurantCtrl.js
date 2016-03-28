@@ -1,51 +1,49 @@
-app.controller('EditRestaurantCtrl', ['$scope', '$sessionStorage', '$location', 'RestaurantService', 'AlertService', 'LoginService', '$uibModalInstance',
-function($scope, $sessionStorage, $location, RestaurantService, AlertService, LoginService, $uibModalInstance){
+app.controller('EditRestaurantCtrl', ['$scope', '$sessionStorage', '$location', '$uibModalInstance', 'RestaurantService', 'AlertService', 'LoginService', 'restaurant',
+function($scope, $sessionStorage, $location, $uibModalInstance, RestaurantService, AlertService, LoginService, restaurant){
+console.log(restaurant);
+$scope.rest = restaurant;
+console.log($scope.rest);
+$scope.amountLocations = restaurant.locations;
+$scope.tags = $sessionStorage.tags.data;
 
-  /*EDIT*/
-  $scope.showEditRestaurant = function(rest){
-    if($scope.anableEdit == undefined || $scope.anableEdit == false){
-      $scope.anableEdit = true;
-    }else{
-      $scope.anableEdit = false;
-    }
-    console.log(rest.locations);
-    $scope.restaurant = rest;
-    $scope.amountLocations = rest.locations;
-    $scope.tags = $sessionStorage.tags.data;
-  };
 
   $scope.addLocationInput = function(){
     $scope.amountLocations.push({});
   }
   $scope.addTag = function(){
-    if($scope.restaurant.tags == undefined){
-      $scope.restaurant.tags = [];
+    if($scope.rest.tags == undefined){
+      $scope.rest.tags = [];
     }
-    console.log($scope.restaurant.selectTag);
-    $scope.restaurant.tags.push({name: $scope.restaurant.selectTag.name})
+    console.log($scope.rest.selectTag);
+    $scope.rest.tags.push({name: $scope.rest.selectTag.name})
   };
   $scope.addTagInput = function(){
-    if($scope.restaurant.tags == undefined){
-      $scope.restaurant.tags = [];
+    if($scope.rest.tags == undefined){
+      $scope.rest.tags = [];
     }
-    $scope.restaurant.tags.push({name: $scope.restaurant.newTag})
-    $scope.restaurant.newTag = '';
+    $scope.rest.tags.push({name: $scope.rest.newTag})
+    $scope.rest.newTag = '';
   };
   $scope.removeTag = function(index){
-    $scope.restaurant.tags.splice(index, 1);
+    $scope.rest.tags.splice(index, 1);
   };
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
+    console.log(restaurant);
+    $scope.rest = restaurant;
   };
 
 
     $scope.editRestaurantSubmit = function(){
-      var restaurantObj = {restaurant: $scope.restaurant}
-      RestaurantService.editRestaurant(restaurantObj, $scope.restaurant.id, LoginService.isLoggedIn().token.jwt)
+      var restaurantObj = {restaurant: $scope.rest}
+      var user = LoginService.isLoggedIn();
+      console.log(user);
+      RestaurantService.editRestaurant(restaurantObj, $scope.rest.id, user.token.jwt)
             .success(function(data){
-              AlertService.handlesAlerts(true, 'Restaurant '+$scope.restaurant.name+' is now updated!', 'info');
+              AlertService.handlesAlerts(true, 'Restaurant '+$scope.rest.name+' is now updated!', 'info');
               $scope.anableEdit = false;
-              $location.path('/restaurants');
+              $location.path('/creatorRestaurants/'+user.userdata.creator.id);
+              $scope.cancel();
             })
             .error(function (error) {
               console.log(error);

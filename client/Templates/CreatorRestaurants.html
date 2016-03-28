@@ -21,13 +21,8 @@
         </div>
 
         <div class="col-md-2">
-          <button type="button" class="btn btn-warning" ng-click="showEditModal(rest)">modal</button>
-          <button type="button" class="btn btn-warning" ng-click="showEditRestaurant(rest)">Edit</button>
+          <button type="button" class="btn btn-warning" ng-click="showEditModal(rest)">Edit</button>
           <button type="button" class="btn btn-danger" ng-click="deleteRestaurant(rest.id)">Delete</button>
-        </div>
-
-        <div id="edit" ng-if="anableEdit">
-          <div ng-include="'Templates/EditRestaurant.html'">
         </div>
 
       </uib-accordion-group>
